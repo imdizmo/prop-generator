@@ -15,9 +15,9 @@ public class TeamTests
     [Theory]
     [InlineData(null, null, null)]
     [InlineData("  ", "", null)]
-    [InlineData(null, "100.90.171.69", "http://100.90.171.69:8781/")]
+    [InlineData(null, "100.64.0.1", "http://100.64.0.1:8781/")]
     [InlineData("", "nas:9000", "http://nas:9000/")]
-    [InlineData("mine.ts.net", "100.90.171.69", "http://mine.ts.net:8781/")]
+    [InlineData("mine.ts.net", "100.64.0.1", "http://mine.ts.net:8781/")]
     [InlineData("https://shelf.example:443", null, "https://shelf.example:8781/")]
     [InlineData("not an address", null, null)]
     public void TheSavedServerWinsOverTheLaunchersAndNeitherMeansOffline(string? saved, string? launcher, string? expected) =>
@@ -219,13 +219,13 @@ public class TeamTests
         var team = new TeamActions(prefs, new Library(s.P("team-library.json")), new ThumbCache(s.P("thumbs")), new FakeDialogs(), s.Dir, (_, _) => { })
         {
             Handler = new FakeShelf(),
-            Launcher = () => "100.90.171.69",
+            Launcher = () => "100.64.0.1",
         };
         var window = new SettingsWindow(w.Claude, prefs, null, team);
         window.Show();
         Ui.Pump();
         var box = Ui.Named<Avalonia.Controls.TextBox>(window, "Team server");
-        Assert.Equal("100.90.171.69 (from the Launcher)", box.PlaceholderText);
+        Assert.Equal("100.64.0.1 (from the Launcher)", box.PlaceholderText);
         box.Text = "nas:9000";
         Ui.Named<Avalonia.Controls.Button>(window, "Check the team server").RaiseEvent(new Avalonia.Interactivity.RoutedEventArgs(Avalonia.Controls.Button.ClickEvent));
         await Task.Delay(50);
