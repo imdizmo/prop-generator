@@ -54,7 +54,7 @@ with zipfile.ZipFile(sys.argv[1], 'w', zipfile.ZIP_DEFLATED) as z:
 " "$stage/blender/prop_generator_bridge.zip")
 
 fetch() { # url sha256 file: into the file, from a cache checked every time
-    if ! echo "$2  $3" | sha256sum -c --status 2>/dev/null; then
+    if ! echo "$2  $3" | sha256sum -c --status >/dev/null 2>&1; then
         curl -fsSL --retry 3 -o "$3.part" "$1"
         echo "$2  $3.part" | sha256sum -c --quiet
         mv "$3.part" "$3"
