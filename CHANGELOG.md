@@ -2,10 +2,20 @@
 
 ## v0.2.0
 
-- **Windows x64:** a .zip with everything inside (the .NET runtime, and Python with numpy for the floor painter), as
-  the Jatify Launcher installs it.
-- **Team props:** publish a prop to your team's server and take a teammate's into Your props (Settings > Team, or the
-  address the Jatify Launcher gives). Offline stays the default.
+New:
+- **Share props with your team.** Your props has Publish to team: it sends the picked prop (as saved, with its picture)
+  to the team's server, the first time as a new team prop, after that as a new version of it. If a teammate published a
+  newer version since you last had it, you're asked before yours replaces theirs. Team props lists everything the team
+  published, with who and when; Take saves a copy into Your props. The server comes from the Jatify Launcher, or set it
+  in Settings > Team; without one, the app works offline as before. If the server can't be reached, you can retry or
+  carry on offline. No password: the server knows you by your Tailscale account.
+- **Windows x64.** A .zip with everything inside (the .NET runtime, and Python with numpy for the floor painter), the
+  one the Jatify Launcher installs. Unzip it anywhere and run PropGenerator.exe.
+
+Not tested yet:
+- **Windows has not been tried on a real Windows PC.** It was checked under Wine on Linux: the app opens, loads every
+  kind and paints a floor, but the 3D view stayed black there. That is most likely Wine's graphics, and a first test on
+  real Windows settles it.
 
 ## v0.1.0
 

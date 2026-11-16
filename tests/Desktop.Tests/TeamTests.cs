@@ -235,6 +235,28 @@ public class TeamTests
         window.Close();
     }
 
+    // Against a real library service: PROPGEN_TEAM_LIVE=<host[:port]>. Publishes a prop called "Prop Generator test
+    // (delete me)" and takes it back; delete it on the server afterwards (DELETE /props/{id}, owner or admin).
+    [Fact]
+    public async Task LivePublishAndTakeBack()
+    {
+        string? live = Environment.GetEnvironmentVariable("PROPGEN_TEAM_LIVE");
+        Assert.SkipWhen(string.IsNullOrEmpty(live), "PROPGEN_TEAM_LIVE is not set.");
+        using var s = new Scratch();
+        var said = new List<string>();
+        var prefs = new Prefs(s.P("prefs.json")) { SaveFolder = s.P("saves"), TeamServer = live };
+        var team = new TeamActions(prefs, new Library(s.P("library.json")), new ThumbCache(s.P("thumbs")), new FakeDialogs(), s.Dir, (m, _) => said.Add(m));
+        string rock = SaveRock(s.P("Prop Generator test (delete me).propgen"));
+        Assert.True(await team.PublishAsync(rock), string.Join(" | ", said));
+        (string id, int version) = team.Links.Of(rock)!.Value;
+        TeamProp row = Assert.Single((await team.ListAsync())!, p => p.Id == id);
+        Assert.Equal(version, row.Version);
+        string? taken = await team.TakeAsync(row);
+        Assert.NotNull(taken);
+        Assert.Equal(File.ReadAllBytes(rock), File.ReadAllBytes(taken!));
+        File.WriteAllText(Path.Combine(Environment.GetEnvironmentVariable("PROPGEN_TEAM_LIVE_OUT") ?? s.P("id.txt")), id);
+    }
+
     private static (TeamActions Team, Library Library, ThumbCache Thumbs) Make(Scratch s, FakeShelf shelf, FakeDialogs dialogs, List<string> said)
     {
         var prefs = new Prefs(s.P("prefs.json")) { SaveFolder = s.P("saves") };
