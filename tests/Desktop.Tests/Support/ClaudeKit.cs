@@ -47,7 +47,7 @@ internal static class ClaudeKit
 
     internal static string Text(CallToolResult r) => string.Concat(r.Content.OfType<TextContentBlock>().Select(b => b.Text));
 
-    internal static JsonElement J(string json) => JsonDocument.Parse(json).RootElement.Clone();
+    internal static JsonElement J(string json) => JsonElement.Parse(json);
 
     internal static (MainWindow Window, ClaudeTools Tools, FakePainter Painter, FakeDialogs Dialogs, Scratch Scratch) Make()
     {

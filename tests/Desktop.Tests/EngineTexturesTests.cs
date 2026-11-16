@@ -142,6 +142,6 @@ public sealed class EngineTexturesTests
     {
         byte[] rgba = new byte[size * size * 4];
         Array.Fill(rgba, value);
-        return new EngineTexture(size, size, rgba, JsonDocument.Parse("{}").RootElement);
+        return new EngineTexture(size, size, rgba, JsonElement.Parse("{}"));
     }
 }

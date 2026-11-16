@@ -218,7 +218,7 @@ public class VersionsTests
         MainWindow w = Open(YourPropsTests.Point("oak"), s);
         w.Editing.Select(w.Editing.Scene!.Components.First(c => c.GeneratorId == "painted-clump").Id);
         CommandListTests.Run(w, "remove-part");
-        Settings basis = w.Panel.Current.With(SettingsPanel.PartEditsKey, System.Text.Json.JsonDocument.Parse("{}").RootElement);
+        Settings basis = w.Panel.Current.With(SettingsPanel.PartEditsKey, System.Text.Json.JsonElement.Parse("{}"));
         string edits = basis.Values[SettingsPanel.TreeEditsKey].GetString()!;
         Assert.NotEqual(string.Empty, edits);
         uint seed = basis.GetSeed("seed");

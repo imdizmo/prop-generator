@@ -492,7 +492,7 @@ public class SlabCliffFieldTests
         // Set SLAB_GOLDEN_WRITE to a path to write the samples there from the code as it is.
         string? write = Environment.GetEnvironmentVariable("SLAB_GOLDEN_WRITE");
         var golden = write is null
-            ? JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Cliffs", "Data", "slab_field_golden.json"))).RootElement.GetProperty("cases")
+            ? JsonElement.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Cliffs", "Data", "slab_field_golden.json"))).GetProperty("cases")
             : default;
         var cases = new List<object>();
         for (int c = 0; c < GoldenCases.Length; c++)

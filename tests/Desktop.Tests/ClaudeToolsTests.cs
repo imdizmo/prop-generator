@@ -402,11 +402,11 @@ public class ClaudeToolsTests
     public void GetStateNamesTheRecipe()
     {
         var (_, tools, _, _, _) = Make();
-        Assert.Equal("floor_tile", JsonDocument.Parse(Text(Run(tools.GetState()))).RootElement.GetProperty("recipe").GetString());
+        Assert.Equal("floor_tile", JsonElement.Parse(Text(Run(tools.GetState()))).GetProperty("recipe").GetString());
 
         Run(tools.StartFromPreset(Recipes.RockRecipe.StartingPoints[0].Id));
 
-        Assert.Equal("cut-rock", JsonDocument.Parse(Text(Run(tools.GetState()))).RootElement.GetProperty("recipe").GetString());
+        Assert.Equal("cut-rock", JsonElement.Parse(Text(Run(tools.GetState()))).GetProperty("recipe").GetString());
     }
 
     [Avalonia.Headless.XUnit.AvaloniaFact]
@@ -480,7 +480,7 @@ public class ClaudeToolsTests
         Run(tools.RunCommand("scene-grey"));
         Run(tools.RunCommand("maximize"));
 
-        JsonElement s = JsonDocument.Parse(Text(Run(tools.GetState()))).RootElement;
+        var s = JsonElement.Parse(Text(Run(tools.GetState())));
 
         Assert.Equal("wireframe", s.GetProperty("shading").GetString());
         Assert.Equal(0, s.GetProperty("lod").GetInt32());

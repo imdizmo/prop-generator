@@ -55,7 +55,7 @@ public class RockBuildSwitchTests
         Assert.Equal("lavender", w.Panel.Current.GetString("palette"));
         Assert.False(Shown(w, "stoneShadow"));
         Assert.False(Shown(w, "build"));
-        Assert.Equal("painted", JsonDocument.Parse(Text(Run(tools.GetState()))).RootElement.GetProperty("build").GetString());
+        Assert.Equal("painted", JsonElement.Parse(Text(Run(tools.GetState()))).GetProperty("build").GetString());
         w.Close();
     }
 

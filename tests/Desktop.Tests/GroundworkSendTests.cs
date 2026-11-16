@@ -34,7 +34,7 @@ public class GroundworkSendTests
             : [];
 
     private static JsonElement SendJson(string delivery) =>
-        JsonDocument.Parse(File.ReadAllText(Path.Combine(delivery, "send.json"))).RootElement.Clone();
+        JsonElement.Parse(File.ReadAllText(Path.Combine(delivery, "send.json")));
 
     // Stands in for Groundwork: answers the first delivery that shows up with the answer made from its id.
     private static Task Groundwork(Scratch s, Func<string, string> answer) => Task.Run(async () =>

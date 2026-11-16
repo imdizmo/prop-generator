@@ -172,7 +172,7 @@ public class WorkFileTests : IDisposable
         Settings good = Defaults();
         var h = new History();
         h.Push("open", good);
-        h.Push("bad", new Settings(new Dictionary<string, JsonElement>(good.Values) { [key] = JsonDocument.Parse(json).RootElement.Clone() }));
+        h.Push("bad", new Settings(new Dictionary<string, JsonElement>(good.Values) { [key] = JsonElement.Parse(json) }));
         string path = Path.Combine(_dir, "t.propgen");
         WorkFile.Save(path, APiece(), good, h);
         IReadOnlyList<ParamSpec> specs = ParamSchema.Load(Path.Combine(AppContext.BaseDirectory, "floor_params.json"));
@@ -184,11 +184,11 @@ public class WorkFileTests : IDisposable
         Assert.Equal(good, WorkFile.Load(path).Settings);
     }
     private static ParamSpec Spec(string key, string type, string json, IReadOnlyList<ChoiceItem>? options = null) =>
-        new(key, key, "tip", "paint", type, null, null, null, JsonDocument.Parse(json).RootElement.Clone(), null, options);
+        new(key, key, "tip", "paint", type, null, null, null, JsonElement.Parse(json), null, options);
 
     private string SaveWith(string key, string json)
     {
-        Settings s = new(new Dictionary<string, JsonElement> { [key] = JsonDocument.Parse(json).RootElement.Clone() });
+        Settings s = new(new Dictionary<string, JsonElement> { [key] = JsonElement.Parse(json) });
         var h = new History();
         h.Push("open", s);
         string path = Path.Combine(_dir, "c.propgen");
