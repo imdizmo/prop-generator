@@ -71,7 +71,7 @@ def paint_run(width, length, joints, x0, x1, seed0, carve_per_100, tight, scale=
     return out
 
 
-try:
+try:                                 # glibc only (not Windows, not musl): give freed memory back
     _LIBC = ctypes.CDLL("libc.so.6")
     _LIBC.malloc_trim
 except (OSError, AttributeError):
@@ -90,26 +90,52 @@ def _strip(c0, c1, *args, trim=False, **kw):
 _POOL = {}
 
 
+_SYNCHRONIZE = 0x00100000       # Windows: the access right to wait on a process
+_INFINITE = 0xFFFFFFFF
+
+
 def _watch_parent(pid):
     """Run in each worker as it starts: end the worker the moment the process that started it is gone, however
     it went (killed, crashed), so no painter outlives it holding memory. Python's own clean-up only runs when the
     parent exits normally."""
-    try:
-        fd = os.pidfd_open(pid)
-    except (AttributeError, OSError):     # no pidfd (old kernel): poll for the parent instead
-        def wait():
-            while os.getppid() != 1 and _alive(pid):
-                threading.Event().wait(0.5)
-    else:
-        def wait():
-            select.select([fd], [], [])   # readable once the process has ended
+    wait = _parent_waiter(pid)
     def watch():
         wait()
         os._exit(0)
     threading.Thread(target=watch, name="watch-parent", daemon=True).start()
 
 
+def _parent_waiter(pid, windows=(os.name == "nt"), kernel32=None):
+    """A function that returns once process pid has ended. Windows waits on the process's handle (os.kill(pid, 0)
+    would end the process there, not test it); Linux on a pidfd, else (an old kernel) it polls for the process."""
+    if windows:
+        k = kernel32 if kernel32 is not None else ctypes.WinDLL("kernel32", use_last_error=True)
+        def wait_windows():
+            h = k.OpenProcess(_SYNCHRONIZE, False, pid)
+            if not h:                     # gone already (or not ours to see): stop now
+                return
+            try:
+                k.WaitForSingleObject(h, _INFINITE)
+            finally:
+                k.CloseHandle(h)
+        return wait_windows
+    try:
+        fd = os.pidfd_open(pid)
+    except (AttributeError, OSError):     # no pidfd (old kernel): poll for the parent instead
+        def wait_poll():
+            while os.getppid() != 1 and _alive(pid):
+                threading.Event().wait(0.5)
+        return wait_poll
+    def wait_pidfd():
+        try:
+            select.select([fd], [], [])   # readable once the process has ended
+        finally:
+            os.close(fd)
+    return wait_pidfd
+
+
 def _alive(pid):
+    """POSIX only: signal 0 tests that the process exists without touching it."""
     try:
         os.kill(pid, 0)
         return True

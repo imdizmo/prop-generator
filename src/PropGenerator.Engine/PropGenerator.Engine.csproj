@@ -18,7 +18,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.ClearScript.V8" Version="7.5.1.1" />
+    <!-- V8 itself, for both platforms the app ships on. A publish for one runtime keeps only its own native library,
+         and leaves it beside the program (never packed into a single-file program: V8 is loaded from disk). -->
     <PackageReference Include="Microsoft.ClearScript.V8.Native.linux-x64" Version="7.5.1.1" />
+    <PackageReference Include="Microsoft.ClearScript.V8.Native.win-x64" Version="7.5.1.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="../PropGenerator.Core/PropGenerator.Core.csproj" />
