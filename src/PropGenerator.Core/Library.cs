@@ -49,6 +49,7 @@ public sealed class Library
     {
         string from = System.IO.Path.GetFullPath(oldPath);
         string to = System.IO.Path.GetFullPath(newPath);
+        Renamed?.Invoke(from, to);
         List<LibraryEntry> all = Read();
         int i = all.FindIndex(e => e.Path == from);
         if (i < 0)
@@ -62,6 +63,9 @@ public sealed class Library
         all[i] = all[i] with { Path = to, Name = System.IO.Path.GetFileNameWithoutExtension(to) };
         Write(all);
     }
+
+    /// <summary>Raised when a work file is renamed (old full path, new full path), so what is kept by path can follow it.</summary>
+    public event Action<string, string>? Renamed;
 
     /// <summary>Gets the library file.</summary>
     public string FilePath { get; }

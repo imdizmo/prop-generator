@@ -173,6 +173,15 @@ open another one first). The drawer's Mine tab still shows the same files as pic
 took. File > Recently removed (or the page's button) lists them, newest first: Put back (refused while another file has
 taken its place), Remove for good (asks first), Put all back and Empty the bin (asks first).
 
+**Team props.** With a team server (the team's library service, reached over Tailscale), Publish to team sends the
+picked prop, as it is saved, with its picture: the first time as a new team prop, then as a new version of it. If
+someone published a newer version since you last had it, you are asked before yours goes over it. Team props (the
+page's button) shows who the server says you are and every prop the team published; Take saves a copy into Your
+props, beside your saved work. The server is the one typed in Settings > Team, else the one the Jatify Launcher gives
+(`JATIFY_TEAM`, a host or host:port; the port is 8781 when none is given). With neither, the app works offline as
+before. When the server cannot be reached you are asked to retry or carry on offline. There are no passwords: the
+server knows you by your Tailscale account.
+
 ## Backups
 
 - **Back up to a file** writes every prop into one zip (`prop-generator-backup-YYYY-MM-DD.zip` is offered): a

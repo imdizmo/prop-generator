@@ -23,6 +23,7 @@ internal sealed class PropsPage : Border
     private readonly ComboBox _kind = new() { MinWidth = 130 };
     private readonly ComboBox _sort = new() { MinWidth = 130 };
     private readonly Button _binButton;
+    private readonly Button _teamButton;
     private readonly StackPanel _rows = new() { Spacing = 2 };
     private readonly StackPanel _details = new() { Spacing = 6, Width = 280 };
     private readonly TextBlock _title = new() { FontSize = 15, FontWeight = FontWeight.SemiBold, Foreground = Look.Theme.TextPrimary };
@@ -75,8 +76,9 @@ internal sealed class PropsPage : Border
             }
         };
         _binButton = Action("Recently removed", "See the props you removed: they wait there for 30 days, to be put back or removed for good.");
+        _teamButton = Action("Team props", "See the props your team published on the team server, and take a copy of one into Your props.");
 
-        var bar = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 8, Children = { _search, _kind, _sort, _binButton } };
+        var bar = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 8, Children = { _search, _kind, _sort, _binButton, _teamButton } };
         var list = new ScrollViewer { Content = _rows, VerticalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto };
         var side = new ScrollViewer { Content = _details, Margin = new Thickness(12, 0, 0, 0) };
         var body = new DockPanel { LastChildFill = true };
@@ -219,7 +221,7 @@ internal sealed class PropsPage : Border
 
         _title.Text = ShowingBin ? "Recently removed" : "Your props";
         _binButton.Content = ShowingBin ? "Back to Your props" : $"Recently removed ({_props.Bin.List().Count})";
-        _search.IsVisible = _kind.IsVisible = _sort.IsVisible = !ShowingBin;
+        _search.IsVisible = _kind.IsVisible = _sort.IsVisible = _teamButton.IsVisible = !ShowingBin;
         Kinds();
         Rows();
         Side();
@@ -433,6 +435,9 @@ internal sealed class PropsPage : Border
             _details.Children.Add(Action("Export…", "Export this prop to the Groundwork map folder without opening it."));
             _details.Children.Add(Action("Send to Groundwork", "Send this prop to the map open in Groundwork without opening it."));
             _details.Children.Add(Action("Copy", "Make a copy of this prop beside it, called \"<name> copy\"."));
+            _details.Children.Add(Action("Publish to team", _w.Team.Links.Of(prop.Path) is { } link
+                ? $"Publish this prop, as it is saved, to the team server as a new version of the team's prop (you last had version {link.Version})."
+                : "Publish this prop, as it is saved, to the team server, so your team can take a copy."));
         }
 
         _details.Children.Add(Action("Rename…", "Give this prop a new name (its work file is renamed in its folder)."));
@@ -480,6 +485,12 @@ internal sealed class PropsPage : Border
                 return;
             case "Send to Groundwork":
                 await _w.Files.SendFilesToGroundworkAsync(Chosen());
+                return;
+            case "Publish to team" when _picked is { } publish:
+                await _w.Team.PublishAsync(publish);
+                return;
+            case "Team props":
+                OpenTeam();
                 return;
             case "Export as a set…":
                 OpenSet(Chosen());
@@ -554,6 +565,26 @@ internal sealed class PropsPage : Border
                 card?.Dispose();
             });
         SetCard = card;
+        _w.Cards.Show(card);
+    }
+
+    /// <summary>Gets the last Team props card this page opened (for the tests), or null.</summary>
+    internal Team.TeamPage? TeamCard { get; private set; }
+
+    // Team props: taking one shows it here, picked.
+    private void OpenTeam()
+    {
+        Team.TeamPage? card = null;
+        card = new Team.TeamPage(
+            _w.Team,
+            () => _w.Cards.Show(this),
+            path =>
+            {
+                _w.Drawer.RefreshMine();
+                _w.Cards.Show(this);
+                _ = _props.LoadAsync().ContinueWith(_ => Avalonia.Threading.Dispatcher.UIThread.Post(() => PickPath(path)), TaskScheduler.Default);
+            });
+        TeamCard = card;
         _w.Cards.Show(card);
     }
 

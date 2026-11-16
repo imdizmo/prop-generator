@@ -35,7 +35,8 @@ public sealed class SettingsWindow : Window
     /// <param name="claude">Claude's connection.</param>
     /// <param name="prefs">Where the export look is kept; without it the Export section is left out.</param>
     /// <param name="view">The view state the wind's strength goes through, so the toolbar follows; null writes the prefs alone.</param>
-    internal SettingsWindow(ClaudeConnection claude, Prefs? prefs, Commands.ViewState? view)
+    /// <param name="team">The team server's actions; without them (or the prefs) the Team section is left out.</param>
+    internal SettingsWindow(ClaudeConnection claude, Prefs? prefs, Commands.ViewState? view, Team.TeamActions? team = null)
     {
         ArgumentNullException.ThrowIfNull(claude);
         _claude = claude;
@@ -84,11 +85,58 @@ public sealed class SettingsWindow : Window
             stack.Children.Add(Labelled("Downhill", Degrees(View.SlopePopover.DownhillSpec, View.SlopePopover.DownhillKeywords, prefs, view)));
         }
 
+        if (prefs is not null && team is not null)
+        {
+            stack.Children.Add(new TextBlock { Text = "Team", FontWeight = FontWeight.SemiBold, FontSize = 16, Margin = new Thickness(0, 10, 0, 0) });
+            TeamSection(stack, prefs, team);
+        }
+
         Content = stack;
 
         _claude.Changed += Refresh;
         Closed += (_, _) => _claude.Changed -= Refresh;
         Refresh();
+    }
+
+    // The team server: typed here, else the Launcher's; Check asks who the server says you are.
+    private static void TeamSection(StackPanel stack, Prefs prefs, Team.TeamActions team)
+    {
+        var server = new TextBox
+        {
+            Text = prefs.TeamServer,
+            PlaceholderText = team.LauncherAddress is { } given ? $"{given} (from the Launcher)" : "Not set: Prop Generator works offline",
+        };
+        Tip(server, "Team server",
+            "The team's server, as a Tailscale address or name (with :port when it is not 8781). Leave it empty to use the one the Launcher gives, or to work offline without one.");
+        var status = new TextBlock { TextWrapping = TextWrapping.Wrap, Opacity = 0.8 };
+        var check = new Button { Content = "Check" };
+        Tip(check, "Check the team server", "Asks the team server who it says you are (by your Tailscale account), to see that the address works.");
+        async Task CheckAsync()
+        {
+            prefs.TeamServer = string.IsNullOrWhiteSpace(server.Text) ? null : server.Text.Trim();
+            prefs.Save();
+            status.Text = team.Server is { } at ? $"Asking {at.Authority}…" : string.Empty;
+            (Team.TeamMe? me, string? problem) = await team.CheckAsync();
+            status.Text = me?.Said ?? problem;
+        }
+
+        check.Click += async (_, _) => await CheckAsync();
+        server.LostFocus += (_, _) =>
+        {
+            string? typed = string.IsNullOrWhiteSpace(server.Text) ? null : server.Text.Trim();
+            if (typed != prefs.TeamServer)
+            {
+                prefs.TeamServer = typed;
+                prefs.Save();
+            }
+        };
+        var row = new Grid { ColumnDefinitions = new ColumnDefinitions("*,Auto"), ColumnSpacing = 8 };
+        row.Children.Add(server);
+        Grid.SetColumn(check, 1);
+        row.Children.Add(check);
+        stack.Children.Add(Labelled("Server", row));
+        stack.Children.Add(status);
+        status.Text = team.Server is null ? "No team server is set: Prop Generator works offline." : "Not checked yet.";
     }
 
     private static void Tip(Control c, string name, string tip)

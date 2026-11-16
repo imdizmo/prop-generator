@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- **Team props:** publish a prop to your team's server and take a teammate's into Your props (Settings > Team, or the
+  address the Jatify Launcher gives). Offline stays the default.
+
 ## v0.1.0
 
 The first release.

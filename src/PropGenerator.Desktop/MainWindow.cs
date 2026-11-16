@@ -125,6 +125,7 @@ public sealed class MainWindow : Window
             TraceLog.Write($"Recently removed was not tidied: {e.Message}");
         }
 
+        Team = new Team.TeamActions(_prefs, Library, Files.Thumbs, Files.Dialogs, ConfigFolder, Say);
         Drawer = new ObjectsDrawer(Files, _prefs, ViewState, Library, Files.Thumbs, StartingPoints, surface, m => Say(m, error: true), Presets, RenamePresetAsync, RemovePreset);
         Backups = new BackupActions(Library, _prefs, Files.Dialogs, ConfigFolder, Say)
         {
@@ -293,6 +294,9 @@ public sealed class MainWindow : Window
     /// the colours and palettes, and My presets.
     /// </summary>
     internal string ConfigFolder { get; }
+
+    /// <summary>Gets the team server's actions (publish, take, who you are).</summary>
+    internal Team.TeamActions Team { get; }
 
     /// <summary>Gets Your props: the saved props with their details, and Recently removed.</summary>
     internal YourProps Props { get; }
@@ -593,7 +597,7 @@ public sealed class MainWindow : Window
             return;
         }
 
-        _settingsWindow = new SettingsWindow(Claude, _prefs, ViewState);
+        _settingsWindow = new SettingsWindow(Claude, _prefs, ViewState, Team);
         _settingsWindow.Closed += (_, _) => _settingsWindow = null;
         _settingsWindow.Show(this);
     }

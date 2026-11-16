@@ -88,6 +88,7 @@ public sealed class Prefs
                     "made" => Props.PropSort.DateMade,
                     _ => Props.PropSort.LastChanged,
                 };
+                TeamServer = Text(o, "teamServer");
                 BackupFolder = Text(o, "backupFolder");
                 if (o["backupKeep"] is JsonValue keep && keep.TryGetValue(out int kept))
                 {
@@ -113,6 +114,12 @@ public sealed class Prefs
             // Nothing remembered.
         }
     }
+
+    /// <summary>
+    /// Gets or sets the team server typed in Settings (host or host:port); null or blank to use the Launcher's
+    /// JATIFY_TEAM, and offline when that is unset too.
+    /// </summary>
+    public string? TeamServer { get; set; }
 
     /// <summary>Gets or sets the Groundwork map folder last exported to.</summary>
     public string? MapFolder { get; set; }
@@ -385,6 +392,7 @@ public sealed class Prefs
                 Props.PropSort.DateMade => "made",
                 _ => "changed",
             };
+            o["teamServer"] = TeamServer;
             o["backupFolder"] = BackupFolder;
             o["backupKeep"] = BackupKeep;
             o["cloud"] = new JsonObject
