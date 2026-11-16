@@ -1,0 +1,10 @@
+{
+    "tag": "v0.4.7",
+    "commit": "480028638016383c5c41b67cbb664da09e85356b",
+    "sha256": "e526957b0d37d34eaa279ee33a8e3b4d80ab9db292f2857686bbb34e97a2d88a",
+    "bytes": 2864894,
+    "shimsSha256": "32d4ed3701cacece3844242b6244669a6dfb51240c192be411763a15f1f6ce7c",
+    "esbuild": "0.28.2",
+    "three": "0.186.1",
+    "thumbnails": 127
+}

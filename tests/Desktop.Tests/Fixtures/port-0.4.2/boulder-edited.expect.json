@@ -1,0 +1,64 @@
+{
+  "recipe": "cut-rock",
+  "copy": "man-rock-port0",
+  "generated": [
+    "cmp-rock-0"
+  ],
+  "edited": [
+    {
+      "id": "man-rock-port0",
+      "type": "rock",
+      "generatorId": "cut-rock-body",
+      "generatorVersion": 1,
+      "parentId": null,
+      "transform": {
+        "position": [
+          0.75,
+          0,
+          0.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "parameters": {
+        "rock": {
+          "build": "painted",
+          "kind": "boulder",
+          "width": 3,
+          "height": 2,
+          "depth": 2.6,
+          "chunks": 4,
+          "faces": 0.6,
+          "cuts": 0.65,
+          "edges": 0.7,
+          "bend": 0.5,
+          "moss": 0.5,
+          "variation": 0.5,
+          "palette": "lavender",
+          "stoneShadow": "#363738",
+          "stoneDark": "#5f6162",
+          "stoneLight": "#8a8c8c",
+          "stoneHighlight": "#b9baba"
+        },
+        "seed": 401
+      },
+      "styleOverrides": null,
+      "seed": 401,
+      "slot": null,
+      "edited": true,
+      "moved": [
+        0.75,
+        0,
+        0.5
+      ]
+    }
+  ]
+}

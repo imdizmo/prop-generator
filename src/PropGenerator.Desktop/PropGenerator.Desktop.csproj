@@ -1,0 +1,49 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- The app: an Avalonia window with the 3D floor (OpenGL through Silk.NET) and the settings panel. Uses Core. -->
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>PropGenerator</AssemblyName>
+    <RootNamespace>PropGenerator.Desktop</RootNamespace>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+    <Product>Prop Generator</Product>
+  </PropertyGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="Desktop.Tests" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../PropGenerator.Core/PropGenerator.Core.csproj" />
+    <ProjectReference Include="../PropGenerator.Nature/PropGenerator.Nature.csproj" />
+    <!-- easy-props' own code (its bundle in V8), for its kinds of prop. -->
+    <ProjectReference Include="../PropGenerator.Engine/PropGenerator.Engine.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="12.1.4" />
+    <PackageReference Include="Avalonia.Desktop" Version="12.1.4" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="12.1.4" />
+    <PackageReference Include="Avalonia.Controls.ColorPicker" Version="12.1.4" />
+    <PackageReference Include="Silk.NET.OpenGL" Version="2.23.0" />
+    <!-- Claude's connection (Settings: Allow Claude to connect): an MCP server inside the app, on 127.0.0.1 only
+         (ClaudeServer.cs), with ASP.NET Core's web server. -->
+    <PackageReference Include="ModelContextProtocol.AspNetCore" Version="2.3.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- The painter goes beside the app as painter/: the app starts painter/worker.py and reads the settings list from
+         painter/propgen_painter/floor_params.json. Its tests and Python's caches stay behind. -->
+    <Content Include="../../painter/**" Exclude="../../painter/tests/**;../../painter/**/__pycache__/**;../../painter/**/*.pyc;../../painter/.pytest_cache/**" LinkBase="painter" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- The objects drawer's picture of the floor, made by tools/make_floor_thumb.py. -->
+    <EmbeddedResource Include="Assets/floor_v5.png" LogicalName="floor_v5.png" />
+    <EmbeddedResource Include="Assets/icon.png" LogicalName="icon.png" />
+    <!-- Space Grotesk, the Jatify look's typeface (SIL Open Font License, see NOTICE.md), as avares://PropGenerator/Assets/Fonts. -->
+    <AvaloniaResource Include="Assets/Fonts/**" />
+  </ItemGroup>
+</Project>

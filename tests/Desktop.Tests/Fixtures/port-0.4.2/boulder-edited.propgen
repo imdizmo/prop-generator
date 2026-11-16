@@ -1,0 +1,238 @@
+{
+  "format": 1,
+  "app": "0.1.0",
+  "piece": {
+    "recipe": "cut-rock",
+    "faces": []
+  },
+  "settings": {
+    "build": "painted",
+    "kind": "boulder",
+    "width": 3,
+    "height": 2,
+    "depth": 2.6,
+    "chunks": 4,
+    "faces": 0.6,
+    "cuts": 0.65,
+    "layers": 0.4,
+    "overhang": 0.3,
+    "dents": 0.3,
+    "rubble": 0,
+    "edges": 0.7,
+    "rounded": 0.5,
+    "blend": 0.6,
+    "bend": 0.5,
+    "variation": 0.5,
+    "grain": 0.6,
+    "lichen": 0.3,
+    "palette": "greystone",
+    "stoneShadow": [
+      0.21176471,
+      0.21568628,
+      0.21960784
+    ],
+    "stoneDark": [
+      0.37254903,
+      0.38039216,
+      0.38431373
+    ],
+    "stoneLight": [
+      0.5411765,
+      0.54901963,
+      0.54901963
+    ],
+    "stoneHighlight": [
+      0.7254902,
+      0.7294118,
+      0.7294118
+    ],
+    "snow": 0,
+    "moss": 0.5,
+    "mossFrom": "sky",
+    "wet": 0,
+    "cracks": 0,
+    "crumble": 0,
+    "seed": 401,
+    "partEdits": {
+      "kept": [
+        {
+          "id": "man-rock-port0",
+          "type": "rock",
+          "generatorId": "cut-rock-body",
+          "generatorVersion": 1,
+          "parentId": null,
+          "transform": {
+            "position": [
+              0.75,
+              0,
+              0.5
+            ],
+            "rotation": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "parameters": {
+            "rock": {
+              "build": "painted",
+              "kind": "boulder",
+              "width": 3,
+              "height": 2,
+              "depth": 2.6,
+              "chunks": 4,
+              "faces": 0.6,
+              "cuts": 0.65,
+              "edges": 0.7,
+              "bend": 0.5,
+              "moss": 0.5,
+              "variation": 0.5,
+              "palette": "lavender",
+              "stoneShadow": "#363738",
+              "stoneDark": "#5f6162",
+              "stoneLight": "#8a8c8c",
+              "stoneHighlight": "#b9baba"
+            },
+            "seed": 401
+          },
+          "styleOverrides": null,
+          "seed": 401,
+          "slot": null,
+          "edited": true,
+          "moved": [
+            0.75,
+            0,
+            0.5
+          ]
+        }
+      ],
+      "removed": [
+        "rock"
+      ]
+    }
+  },
+  "history": {
+    "index": 0,
+    "steps": [
+      {
+        "label": "Edited on the port",
+        "settings": {
+          "build": "painted",
+          "kind": "boulder",
+          "width": 3,
+          "height": 2,
+          "depth": 2.6,
+          "chunks": 4,
+          "faces": 0.6,
+          "cuts": 0.65,
+          "layers": 0.4,
+          "overhang": 0.3,
+          "dents": 0.3,
+          "rubble": 0,
+          "edges": 0.7,
+          "rounded": 0.5,
+          "blend": 0.6,
+          "bend": 0.5,
+          "variation": 0.5,
+          "grain": 0.6,
+          "lichen": 0.3,
+          "palette": "greystone",
+          "stoneShadow": [
+            0.21176471,
+            0.21568628,
+            0.21960784
+          ],
+          "stoneDark": [
+            0.37254903,
+            0.38039216,
+            0.38431373
+          ],
+          "stoneLight": [
+            0.5411765,
+            0.54901963,
+            0.54901963
+          ],
+          "stoneHighlight": [
+            0.7254902,
+            0.7294118,
+            0.7294118
+          ],
+          "snow": 0,
+          "moss": 0.5,
+          "mossFrom": "sky",
+          "wet": 0,
+          "cracks": 0,
+          "crumble": 0,
+          "seed": 401,
+          "partEdits": {
+            "kept": [
+              {
+                "id": "man-rock-port0",
+                "type": "rock",
+                "generatorId": "cut-rock-body",
+                "generatorVersion": 1,
+                "parentId": null,
+                "transform": {
+                  "position": [
+                    0.75,
+                    0,
+                    0.5
+                  ],
+                  "rotation": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "scale": [
+                    1,
+                    1,
+                    1
+                  ]
+                },
+                "parameters": {
+                  "rock": {
+                    "build": "painted",
+                    "kind": "boulder",
+                    "width": 3,
+                    "height": 2,
+                    "depth": 2.6,
+                    "chunks": 4,
+                    "faces": 0.6,
+                    "cuts": 0.65,
+                    "edges": 0.7,
+                    "bend": 0.5,
+                    "moss": 0.5,
+                    "variation": 0.5,
+                    "palette": "lavender",
+                    "stoneShadow": "#363738",
+                    "stoneDark": "#5f6162",
+                    "stoneLight": "#8a8c8c",
+                    "stoneHighlight": "#b9baba"
+                  },
+                  "seed": 401
+                },
+                "styleOverrides": null,
+                "seed": 401,
+                "slot": null,
+                "edited": true,
+                "moved": [
+                  0.75,
+                  0,
+                  0.5
+                ]
+              }
+            ],
+            "removed": [
+              "rock"
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

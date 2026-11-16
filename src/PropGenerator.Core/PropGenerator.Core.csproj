@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Everything that is not the window: the settings schema and the colour palette. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>PropGenerator</RootNamespace>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <!-- For the source-generated Windows calls (ProcessWorkerLauncher's Job Object). -->
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="Core.Tests" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- The painter's settings list, read from where the painter keeps it (no second copy). -->
+    <Content Include="../../painter/propgen_painter/floor_params.json" Link="floor_params.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="SharpGLTF.Toolkit" Version="1.0.6" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Our own kinds (slab cliffs, stylized rocks) and the code they share with easy-props: the export path (merge,
+       collision, wind, far card, GLB, asset JSON, engine kits), three's maths kernel and JavaScript's numbers, ported
+       one to one from easy-props (MIT, © 2026 AHS12). easy-props' own kinds run on its engine (PropGenerator.Engine).
+       Files ported from it carry a header line naming their source; see NOTICE.md. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>PropGenerator.Nature</RootNamespace>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <!-- For [SkipLocalsInit] on the cliff field's hot paths, whose stack spans are written before they are read. -->
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="PropGenerator" />
+    <InternalsVisibleTo Include="Nature.Tests" />
+    <InternalsVisibleTo Include="Engine.Tests" />
+    <InternalsVisibleTo Include="Desktop.Tests" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- easy-props' engine kits (MIT, © 2026 AHS12), copied byte for byte; read back by their path under EngineKits/. -->
+    <EmbeddedResource Include="EngineKits/**/*" LogicalName="PropGenerator.Nature.EngineKits/%(RecursiveDir)%(Filename)%(Extension)" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="SharpGLTF.Core" Version="1.0.6" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../PropGenerator.Core/PropGenerator.Core.csproj" />
+  </ItemGroup>
+  <!-- .NET's rounding and transcendental maths differ from V8's in the last bit, which no test of a slider would see:
+       BannedSymbols.txt bans them outside Js/ (RS0030, an error like every warning here). -->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.BannedApiAnalyzers" Version="4.14.0" PrivateAssets="all" IncludeAssets="runtime; build; native; contentfiles; analyzers" />
+    <AdditionalFiles Include="BannedSymbols.txt" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,124 @@
+{
+  "format": 1,
+  "app": "0.1.0",
+  "piece": {
+    "recipe": "grass",
+    "faces": []
+  },
+  "settings": {
+    "build": "painted",
+    "width": 0.5,
+    "height": 0.6,
+    "blades": 70,
+    "clumps": 3,
+    "gather": 0.3,
+    "lean": 0.55,
+    "scatter": 0.45,
+    "bladeWidth": 0.024,
+    "smoothness": 4,
+    "tall": 0.08,
+    "dryness": 0,
+    "variation": 0.5,
+    "palette": "meadow",
+    "grassRoot": [
+      0.24705882,
+      0.43137255,
+      0.023529412
+    ],
+    "grassLow": [
+      0.42745098,
+      0.63529414,
+      0.03137255
+    ],
+    "grassHigh": [
+      0.6117647,
+      0.79607844,
+      0.10980392
+    ],
+    "grassTip": [
+      0.8392157,
+      0.9098039,
+      0.36862746
+    ],
+    "flowers": 0,
+    "flowerColour": "white",
+    "flowerDeep": [
+      0.8117647,
+      0.83137256,
+      0.78431374
+    ],
+    "flowerMiddle": [
+      0.9411765,
+      0.9411765,
+      0.91764706
+    ],
+    "flowerLight": [
+      1,
+      1,
+      1
+    ],
+    "seed": 383
+  },
+  "history": {
+    "index": 0,
+    "steps": [
+      {
+        "label": "Grass tuft",
+        "settings": {
+          "build": "painted",
+          "width": 0.5,
+          "height": 0.6,
+          "blades": 70,
+          "clumps": 3,
+          "gather": 0.3,
+          "lean": 0.55,
+          "scatter": 0.45,
+          "bladeWidth": 0.024,
+          "smoothness": 4,
+          "tall": 0.08,
+          "dryness": 0,
+          "variation": 0.5,
+          "palette": "meadow",
+          "grassRoot": [
+            0.24705882,
+            0.43137255,
+            0.023529412
+          ],
+          "grassLow": [
+            0.42745098,
+            0.63529414,
+            0.03137255
+          ],
+          "grassHigh": [
+            0.6117647,
+            0.79607844,
+            0.10980392
+          ],
+          "grassTip": [
+            0.8392157,
+            0.9098039,
+            0.36862746
+          ],
+          "flowers": 0,
+          "flowerColour": "white",
+          "flowerDeep": [
+            0.8117647,
+            0.83137256,
+            0.78431374
+          ],
+          "flowerMiddle": [
+            0.9411765,
+            0.9411765,
+            0.91764706
+          ],
+          "flowerLight": [
+            1,
+            1,
+            1
+          ],
+          "seed": 383
+        }
+      }
+    ]
+  }
+}

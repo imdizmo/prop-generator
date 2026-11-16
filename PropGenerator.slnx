@@ -1,0 +1,14 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/PropGenerator.Core/PropGenerator.Core.csproj" />
+    <Project Path="src/PropGenerator.Desktop/PropGenerator.Desktop.csproj" />
+    <Project Path="src/PropGenerator.Engine/PropGenerator.Engine.csproj" />
+    <Project Path="src/PropGenerator.Nature/PropGenerator.Nature.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Core.Tests/Core.Tests.csproj" />
+    <Project Path="tests/Desktop.Tests/Desktop.Tests.csproj" />
+    <Project Path="tests/Engine.Tests/Engine.Tests.csproj" />
+    <Project Path="tests/Nature.Tests/Nature.Tests.csproj" />
+  </Folder>
+</Solution>

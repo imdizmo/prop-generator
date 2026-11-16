@@ -1,0 +1,198 @@
+{
+  "format": 1,
+  "app": "0.1.0",
+  "piece": {
+    "recipe": "branching-tree",
+    "faces": []
+  },
+  "settings": {
+    "height": 4.2,
+    "trunkRadius": 0.32,
+    "taper": 0.55,
+    "bend": "very-curved",
+    "twist": 0,
+    "branchCount": 12,
+    "branchLength": 2.6,
+    "foliageCount": 20,
+    "foliageSize": 0.6,
+    "foliageShape": "round",
+    "rootCount": 6,
+    "seed": 12345,
+    "branchLevels": 2,
+    "branchAngle": 45,
+    "asymmetry": 0.3,
+    "partEdits": {
+      "kept": [
+        {
+          "id": "cmp-branch-0",
+          "type": "branch",
+          "generatorId": "branch",
+          "generatorVersion": 2,
+          "parentId": "cmp-trunk-0",
+          "transform": {
+            "position": [
+              0.5094023976772872,
+              1.440815812979639,
+              -0.22681698111965273
+            ],
+            "rotation": [
+              0.018600343442741262,
+              -0.04463849102831655,
+              0.7895219081604973
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "parameters": {
+            "length": 1.9488129386898547,
+            "baseRadius": 0.06903908448083262,
+            "tipRadius": 0.020711725344249785,
+            "bend": 0.5948784103034995,
+            "curl": 0.24841321969870478,
+            "twist": 6.500449702143669,
+            "controlPoints": 5,
+            "spine": [
+              {
+                "t": 0,
+                "y": 0,
+                "z": 0
+              },
+              {
+                "t": 0.25,
+                "y": 0.0724566714341695,
+                "z": 0.030256931043152586
+              },
+              {
+                "t": 0.5,
+                "y": 0.289826685736678,
+                "z": 0.12102772417261035
+              },
+              {
+                "t": 0.75,
+                "y": 0.6521100429075255,
+                "z": 0.27231237938837327
+              },
+              {
+                "t": 1,
+                "y": 1.159306742946712,
+                "z": 0.4841108966904414
+              }
+            ]
+          },
+          "styleOverrides": null,
+          "seed": 2213463581,
+          "slot": "branch-1",
+          "edited": false,
+          "moved": [
+            0.3,
+            0.10000000000000009,
+            -0.2
+          ]
+        }
+      ],
+      "removed": []
+    }
+  },
+  "history": {
+    "index": 0,
+    "steps": [
+      {
+        "label": "Edited on the port",
+        "settings": {
+          "height": 4.2,
+          "trunkRadius": 0.32,
+          "taper": 0.55,
+          "bend": "very-curved",
+          "twist": 0,
+          "branchCount": 12,
+          "branchLength": 2.6,
+          "foliageCount": 20,
+          "foliageSize": 0.6,
+          "foliageShape": "round",
+          "rootCount": 6,
+          "seed": 12345,
+          "branchLevels": 2,
+          "branchAngle": 45,
+          "asymmetry": 0.3,
+          "partEdits": {
+            "kept": [
+              {
+                "id": "cmp-branch-0",
+                "type": "branch",
+                "generatorId": "branch",
+                "generatorVersion": 2,
+                "parentId": "cmp-trunk-0",
+                "transform": {
+                  "position": [
+                    0.5094023976772872,
+                    1.440815812979639,
+                    -0.22681698111965273
+                  ],
+                  "rotation": [
+                    0.018600343442741262,
+                    -0.04463849102831655,
+                    0.7895219081604973
+                  ],
+                  "scale": [
+                    1,
+                    1,
+                    1
+                  ]
+                },
+                "parameters": {
+                  "length": 1.9488129386898547,
+                  "baseRadius": 0.06903908448083262,
+                  "tipRadius": 0.020711725344249785,
+                  "bend": 0.5948784103034995,
+                  "curl": 0.24841321969870478,
+                  "twist": 6.500449702143669,
+                  "controlPoints": 5,
+                  "spine": [
+                    {
+                      "t": 0,
+                      "y": 0,
+                      "z": 0
+                    },
+                    {
+                      "t": 0.25,
+                      "y": 0.0724566714341695,
+                      "z": 0.030256931043152586
+                    },
+                    {
+                      "t": 0.5,
+                      "y": 0.289826685736678,
+                      "z": 0.12102772417261035
+                    },
+                    {
+                      "t": 0.75,
+                      "y": 0.6521100429075255,
+                      "z": 0.27231237938837327
+                    },
+                    {
+                      "t": 1,
+                      "y": 1.159306742946712,
+                      "z": 0.4841108966904414
+                    }
+                  ]
+                },
+                "styleOverrides": null,
+                "seed": 2213463581,
+                "slot": "branch-1",
+                "edited": false,
+                "moved": [
+                  0.3,
+                  0.10000000000000009,
+                  -0.2
+                ]
+              }
+            ],
+            "removed": []
+          }
+        }
+      }
+    ]
+  }
+}

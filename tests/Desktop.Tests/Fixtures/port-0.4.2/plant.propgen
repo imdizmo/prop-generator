@@ -1,0 +1,70 @@
+{
+  "format": 1,
+  "app": "0.1.0",
+  "piece": {
+    "recipe": "plant",
+    "faces": []
+  },
+  "settings": {
+    "build": "painted",
+    "width": 0.7,
+    "height": 0.6,
+    "stems": 8,
+    "lean": 0.25,
+    "leaves": 3,
+    "kind": "daisy",
+    "headSize": 0.13,
+    "palette": "pink",
+    "flowerDeep": [
+      0.8117647,
+      0.83137256,
+      0.78431374
+    ],
+    "flowerMiddle": [
+      0.9411765,
+      0.9411765,
+      0.91764706
+    ],
+    "flowerLight": [
+      1,
+      1,
+      1
+    ],
+    "seed": 385
+  },
+  "history": {
+    "index": 0,
+    "steps": [
+      {
+        "label": "Pink blooms",
+        "settings": {
+          "build": "painted",
+          "width": 0.7,
+          "height": 0.6,
+          "stems": 8,
+          "lean": 0.25,
+          "leaves": 3,
+          "kind": "daisy",
+          "headSize": 0.13,
+          "palette": "pink",
+          "flowerDeep": [
+            0.8117647,
+            0.83137256,
+            0.78431374
+          ],
+          "flowerMiddle": [
+            0.9411765,
+            0.9411765,
+            0.91764706
+          ],
+          "flowerLight": [
+            1,
+            1,
+            1
+          ],
+          "seed": 385
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+bin/
+obj/
+*.user
+.vs/
+__pycache__/
+.pytest_cache/
+*.pyc
+
+# soak.sh run output
+tools/soak-out/

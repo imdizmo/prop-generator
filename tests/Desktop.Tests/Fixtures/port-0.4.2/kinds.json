@@ -1,0 +1,52 @@
+{
+  "files": [
+    {
+      "file": "cut-rock.propgen",
+      "recipe": "cut-rock",
+      "point": "boulder",
+      "name": "Boulder"
+    },
+    {
+      "file": "grass.propgen",
+      "recipe": "grass",
+      "point": "grass-tuft",
+      "name": "Grass tuft"
+    },
+    {
+      "file": "plant.propgen",
+      "recipe": "plant",
+      "point": "flower-clump",
+      "name": "Pink blooms"
+    },
+    {
+      "file": "bush.propgen",
+      "recipe": "bush",
+      "point": "round-bush",
+      "name": "Round bush"
+    },
+    {
+      "file": "cactus.propgen",
+      "recipe": "cactus",
+      "point": "saguaro",
+      "name": "Saguaro"
+    },
+    {
+      "file": "painted-tree.propgen",
+      "recipe": "painted-tree",
+      "point": "spring-tree",
+      "name": "Spring tree"
+    },
+    {
+      "file": "branching-tree.propgen",
+      "recipe": "branching-tree",
+      "point": "round-canopy",
+      "name": "Round canopy"
+    },
+    {
+      "file": "palm-tree.propgen",
+      "recipe": "palm-tree",
+      "point": "palm-tree",
+      "name": "Old-style palm"
+    }
+  ]
+}

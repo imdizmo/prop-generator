@@ -1,0 +1,18 @@
+{
+  "how": "SHA-256 per unit of SharedPinsTests: floats rounded to 1e-6, file bytes as they are. Written with PROPGEN_REPIN=1.",
+  "hashes": {
+    "AssetJson": "7c8d957abc8dbcf3ded296f5a625549d9169ed60e34a3994f49344e71676051e",
+    "Collision": "12e7d2ff1ad115e0eee376d5546e5145c996056a55487a254d6b0d00730217dc",
+    "EngineKits": "89b056b394600312f980c64b074d2f6309afe833e68350bc9c3ed4f173148d37",
+    "FarCard": "bc30fa8e1fbed8c5a4ed33aae83ed93c12b0aa353a39f5098272d866b4c4595a",
+    "FileNameOrder": "75dc496e0496fbeae7d8d08a4707e54bcda62be916c0140163310ef391772723",
+    "FileRelief": "e86b5e9f4bf9ab4efb077ce5a381d51836abd380918be39514d0816b52afba32",
+    "GlbWriter": "9182795c45396969c86ad3a87080f2fda7da012e3cdfa8decd77256fb843da57",
+    "Materials": "e2271464deed10d35011abb24a41b54920ba9afe664341d249c7cccf6d676047",
+    "Merge": "d24550df7837fdf350780ea16153dfb4fa69f756f395aa74a17b705544d51ff8",
+    "MeshOps": "7a285b1a7781facf9702398a35e90fc978670cf07a2d997b63e51cde71f37684",
+    "Package": "da518b595286512ca35540bf84466e7ab94fd06837be6db85cc5bcecdc946858",
+    "WhiteTexture": "8141b7d95692c4a6e57069820aff85005a6b4f1a8f9e0386fe76f41c08630389",
+    "Wind": "6ae84370e78fdf7122a3dcba2ffe20b0d2bf92bf46915ac36765cfcabed2b9c3"
+  }
+}

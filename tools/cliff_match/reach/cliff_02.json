@@ -1,0 +1,23 @@
+{
+  "width": 3.9,
+  "height": 11.9,
+  "depth": 4.7,
+  "blocks": 1,
+  "lean": 1.5,
+  "top-tilt": 0.0,
+  "taper": 0.0,
+  "end-turn": 2.0,
+  "foot": 0.25,
+  "underside-tilt": 18.0,
+  "roughness": 0.22,
+  "bevel": 0.0,
+  "sink": 0.1,
+  "steps": 0,
+  "bites": 0,
+  "grooves": 0,
+  "cut-depth": 0.92,
+  "edge-chips": 0.0,
+  "crease-step": 0.0,
+  "palette": "slate",
+  "seed": 1252
+}

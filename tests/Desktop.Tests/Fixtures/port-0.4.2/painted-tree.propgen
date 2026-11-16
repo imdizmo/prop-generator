@@ -1,0 +1,170 @@
+{
+  "format": 1,
+  "app": "0.1.0",
+  "piece": {
+    "recipe": "painted-tree",
+    "faces": []
+  },
+  "settings": {
+    "build": "painted",
+    "form": "crown",
+    "height": 8,
+    "trunkRadius": 0.72,
+    "stem": 1,
+    "lean": 0.12,
+    "trunkBend": 0.11,
+    "corkscrew": 0,
+    "ridgeTwist": 0.75,
+    "ridgeDepth": 0.15,
+    "ridgeCount": 5,
+    "flare": 0.34,
+    "rootCount": 6,
+    "rootLength": 1,
+    "crownShape": "natural",
+    "limbCount": 5,
+    "forkHeight": 0.4,
+    "spread": 8,
+    "limbAngle": 36,
+    "droop": 0,
+    "gnarl": 0.3,
+    "branchCount": 4,
+    "twigCount": 2,
+    "clumpCount": 11,
+    "clumpSize": 1,
+    "clumpMerge": 0.25,
+    "clumpFlatten": 0.4,
+    "lumpiness": 0.6,
+    "fullness": 0.75,
+    "leafSize": 1,
+    "frondStyle": "feather",
+    "strands": 0,
+    "strandLength": 0.7,
+    "fruitCount": 0,
+    "fruitKind": "apple",
+    "fruitSize": 1,
+    "palette": "spring",
+    "barkTone": "palette",
+    "colourVariation": 0.35,
+    "barkPattern": "none",
+    "patternDepth": 0.5,
+    "patternScale": 1,
+    "brushStrokes": 1,
+    "barkDetail": 1,
+    "roughness": 0.2,
+    "burls": 0,
+    "hollow": 0,
+    "moss": 0,
+    "barkDeep": [
+      0.16862746,
+      0.15294118,
+      0.22352941
+    ],
+    "barkLight": [
+      0.52156866,
+      0.4862745,
+      0.6117647
+    ],
+    "leafDeep": [
+      0.64705884,
+      0.23529412,
+      0.76862746
+    ],
+    "leafMid": [
+      0.91764706,
+      0.49803922,
+      0.8627451
+    ],
+    "leafLight": [
+      1,
+      0.9019608,
+      0.95686275
+    ],
+    "seed": 5,
+    "edits": ""
+  },
+  "history": {
+    "index": 0,
+    "steps": [
+      {
+        "label": "Spring tree",
+        "settings": {
+          "build": "painted",
+          "form": "crown",
+          "height": 8,
+          "trunkRadius": 0.72,
+          "stem": 1,
+          "lean": 0.12,
+          "trunkBend": 0.11,
+          "corkscrew": 0,
+          "ridgeTwist": 0.75,
+          "ridgeDepth": 0.15,
+          "ridgeCount": 5,
+          "flare": 0.34,
+          "rootCount": 6,
+          "rootLength": 1,
+          "crownShape": "natural",
+          "limbCount": 5,
+          "forkHeight": 0.4,
+          "spread": 8,
+          "limbAngle": 36,
+          "droop": 0,
+          "gnarl": 0.3,
+          "branchCount": 4,
+          "twigCount": 2,
+          "clumpCount": 11,
+          "clumpSize": 1,
+          "clumpMerge": 0.25,
+          "clumpFlatten": 0.4,
+          "lumpiness": 0.6,
+          "fullness": 0.75,
+          "leafSize": 1,
+          "frondStyle": "feather",
+          "strands": 0,
+          "strandLength": 0.7,
+          "fruitCount": 0,
+          "fruitKind": "apple",
+          "fruitSize": 1,
+          "palette": "spring",
+          "barkTone": "palette",
+          "colourVariation": 0.35,
+          "barkPattern": "none",
+          "patternDepth": 0.5,
+          "patternScale": 1,
+          "brushStrokes": 1,
+          "barkDetail": 1,
+          "roughness": 0.2,
+          "burls": 0,
+          "hollow": 0,
+          "moss": 0,
+          "barkDeep": [
+            0.16862746,
+            0.15294118,
+            0.22352941
+          ],
+          "barkLight": [
+            0.52156866,
+            0.4862745,
+            0.6117647
+          ],
+          "leafDeep": [
+            0.64705884,
+            0.23529412,
+            0.76862746
+          ],
+          "leafMid": [
+            0.91764706,
+            0.49803922,
+            0.8627451
+          ],
+          "leafLight": [
+            1,
+            0.9019608,
+            0.95686275
+          ],
+          "seed": 5,
+          "edits": ""
+        }
+      }
+    ]
+  }
+}

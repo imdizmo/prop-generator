@@ -1,0 +1,122 @@
+{
+  "format": 1,
+  "app": "0.1.0",
+  "piece": {
+    "recipe": "bush",
+    "faces": []
+  },
+  "settings": {
+    "build": "painted",
+    "kind": "round",
+    "width": 3,
+    "height": 2,
+    "depth": 2.6,
+    "lobes": 7,
+    "lumps": 0.5,
+    "inside": "solid",
+    "fullness": 3,
+    "leafSize": 0.2,
+    "variation": 0.5,
+    "palette": "summer",
+    "leafShadow": [
+      0.10980392,
+      0.24705882,
+      0.03137255
+    ],
+    "leafDark": [
+      0.23921569,
+      0.45490196,
+      0.0627451
+    ],
+    "leafLight": [
+      0.49803922,
+      0.7019608,
+      0.101960786
+    ],
+    "leafHighlight": [
+      0.827451,
+      0.9098039,
+      0.36078432
+    ],
+    "flowers": 0,
+    "flowerSize": 0.1,
+    "flowerColour": "pink",
+    "flowerDeep": [
+      0.78431374,
+      0.2509804,
+      0.4862745
+    ],
+    "flowerMiddle": [
+      0.9254902,
+      0.4862745,
+      0.6901961
+    ],
+    "flowerLight": [
+      1,
+      0.8392157,
+      0.91764706
+    ],
+    "seed": 361
+  },
+  "history": {
+    "index": 0,
+    "steps": [
+      {
+        "label": "Round bush",
+        "settings": {
+          "build": "painted",
+          "kind": "round",
+          "width": 3,
+          "height": 2,
+          "depth": 2.6,
+          "lobes": 7,
+          "lumps": 0.5,
+          "inside": "solid",
+          "fullness": 3,
+          "leafSize": 0.2,
+          "variation": 0.5,
+          "palette": "summer",
+          "leafShadow": [
+            0.10980392,
+            0.24705882,
+            0.03137255
+          ],
+          "leafDark": [
+            0.23921569,
+            0.45490196,
+            0.0627451
+          ],
+          "leafLight": [
+            0.49803922,
+            0.7019608,
+            0.101960786
+          ],
+          "leafHighlight": [
+            0.827451,
+            0.9098039,
+            0.36078432
+          ],
+          "flowers": 0,
+          "flowerSize": 0.1,
+          "flowerColour": "pink",
+          "flowerDeep": [
+            0.78431374,
+            0.2509804,
+            0.4862745
+          ],
+          "flowerMiddle": [
+            0.9254902,
+            0.4862745,
+            0.6901961
+          ],
+          "flowerLight": [
+            1,
+            0.8392157,
+            0.91764706
+          ],
+          "seed": 361
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,142 @@
+# APIs whose results differ, in the last bit, from what V8 computes for easy-props. Generation code calls
+# Js/JsMath instead (V8's fdlibm ports, JavaScript's Math.round), so a byte-invisible regression cannot slip in.
+# Only Js/ may use them, each use behind a `#pragma warning disable RS0030` that says why. Format: documentation ids
+# (https://github.com/dotnet/roslyn/blob/main/src/RoslynAnalyzers/Microsoft.CodeAnalysis.BannedApiAnalyzers/BannedApiAnalyzers.Help.md).
+M:System.Math.Round(System.Double);Math.Round rounds halves to even: use JsMath.Round (JavaScript's Math.round)
+M:System.Math.Round(System.Double,System.Int32);Use JsMath.Round (JavaScript's Math.round)
+M:System.Math.Round(System.Double,System.MidpointRounding);Use JsMath.Round (JavaScript's Math.round)
+M:System.Math.Round(System.Double,System.Int32,System.MidpointRounding);Use JsMath.Round (JavaScript's Math.round)
+M:System.Math.Round(System.Decimal);Use JsMath.Round (JavaScript's Math.round)
+M:System.Math.Round(System.Decimal,System.Int32);Use JsMath.Round (JavaScript's Math.round)
+M:System.Math.Round(System.Decimal,System.MidpointRounding);Use JsMath.Round (JavaScript's Math.round)
+M:System.Math.Round(System.Decimal,System.Int32,System.MidpointRounding);Use JsMath.Round (JavaScript's Math.round)
+M:System.Math.Sin(System.Double);Use JsMath.Sin (V8's)
+M:System.Math.Cos(System.Double);Use JsMath.Cos (V8's)
+M:System.Math.SinCos(System.Double);Use JsMath.Sin and JsMath.Cos (V8's)
+M:System.Math.Tan(System.Double);Use JsMath.Tan (V8's)
+M:System.Math.Atan(System.Double);Use JsMath.Atan (V8's)
+M:System.Math.Atan2(System.Double,System.Double);Use JsMath.Atan2 (V8's)
+M:System.Math.Exp(System.Double);Use JsMath.Exp (V8's)
+M:System.Math.Log(System.Double);Use JsMath.Log (V8's)
+M:System.Math.Log(System.Double,System.Double);Use JsMath.Log (V8's)
+M:System.Math.Log10(System.Double);Use JsMath.Log10 (V8's)
+M:System.Math.Pow(System.Double,System.Double);Use JsMath.Pow (V8's special cases)
+M:System.Math.Asin(System.Double);Use JsMath.Asin (V8's)
+M:System.Math.Acos(System.Double);Use JsMath.Acos (V8's)
+T:System.MathF;Single-precision maths: easy-props computes in doubles
+# The same functions reached through double's generic-math members.
+M:System.Double.Round(System.Double);Use JsMath.Round (JavaScript's Math.round)
+M:System.Double.Round(System.Double,System.Int32);Use JsMath.Round (JavaScript's Math.round)
+M:System.Double.Round(System.Double,System.MidpointRounding);Use JsMath.Round (JavaScript's Math.round)
+M:System.Double.Round(System.Double,System.Int32,System.MidpointRounding);Use JsMath.Round (JavaScript's Math.round)
+M:System.Double.Sin(System.Double);Use JsMath.Sin (V8's)
+M:System.Double.Cos(System.Double);Use JsMath.Cos (V8's)
+M:System.Double.SinCos(System.Double);Use JsMath.Sin and JsMath.Cos (V8's)
+M:System.Double.Tan(System.Double);Use JsMath.Tan (V8's)
+M:System.Double.Atan(System.Double);Use JsMath.Atan (V8's)
+M:System.Double.Atan2(System.Double,System.Double);Use JsMath.Atan2 (V8's)
+M:System.Double.Exp(System.Double);Use JsMath.Exp (V8's)
+M:System.Double.Log(System.Double);Use JsMath.Log (V8's)
+M:System.Double.Log(System.Double,System.Double);Use JsMath.Log (V8's)
+M:System.Double.Log10(System.Double);Use JsMath.Log10 (V8's)
+M:System.Double.Pow(System.Double,System.Double);Use JsMath.Pow (V8's special cases)
+M:System.Double.Asin(System.Double);Use JsMath.Asin (V8's)
+M:System.Double.Acos(System.Double);Use JsMath.Acos (V8's)
+M:System.Double.Hypot(System.Double,System.Double);Use JsMath.Hypot (V8's MathHypot)
+# Fused, estimated and further transcendental maths: V8 has none of these, or computes them otherwise.
+M:System.Math.FusedMultiplyAdd(System.Double,System.Double,System.Double);JavaScript has no fused multiply-add: round after each operation
+M:System.Math.ReciprocalEstimate(System.Double);An estimate differs by machine
+M:System.Math.ReciprocalSqrtEstimate(System.Double);An estimate differs by machine
+M:System.Math.Cbrt(System.Double);Not V8's Math.cbrt: add a JsMath port first
+M:System.Math.Log2(System.Double);Not V8's Math.log2: add a JsMath port first
+M:System.Math.Sinh(System.Double);Not V8's Math.sinh: add a JsMath port first
+M:System.Math.Cosh(System.Double);Not V8's Math.cosh: add a JsMath port first
+M:System.Math.Tanh(System.Double);Not V8's Math.tanh: add a JsMath port first
+M:System.Math.Asinh(System.Double);Not V8's Math.asinh: add a JsMath port first
+M:System.Math.Acosh(System.Double);Not V8's Math.acosh: add a JsMath port first
+M:System.Math.Atanh(System.Double);Not V8's Math.atanh: add a JsMath port first
+# double's generic maths beyond System.Math's.
+M:System.Double.Exp2(System.Double);Not V8 maths: add a JsMath port first
+M:System.Double.Exp10(System.Double);Not V8 maths: add a JsMath port first
+M:System.Double.ExpM1(System.Double);Not V8 maths: add a JsMath port first
+M:System.Double.Exp2M1(System.Double);Not V8 maths: add a JsMath port first
+M:System.Double.Exp10M1(System.Double);Not V8 maths: add a JsMath port first
+M:System.Double.LogP1(System.Double);Not V8 maths: add a JsMath port first
+M:System.Double.Log2P1(System.Double);Not V8 maths: add a JsMath port first
+M:System.Double.Log10P1(System.Double);Not V8 maths: add a JsMath port first
+M:System.Double.Log2(System.Double);Not V8 maths: add a JsMath port first
+M:System.Double.Cbrt(System.Double);Not V8 maths: add a JsMath port first
+M:System.Double.SinPi(System.Double);Not V8 maths: add a JsMath port first
+M:System.Double.CosPi(System.Double);Not V8 maths: add a JsMath port first
+M:System.Double.TanPi(System.Double);Not V8 maths: add a JsMath port first
+M:System.Double.SinCosPi(System.Double);Not V8 maths: add a JsMath port first
+M:System.Double.AsinPi(System.Double);Not V8 maths: add a JsMath port first
+M:System.Double.AcosPi(System.Double);Not V8 maths: add a JsMath port first
+M:System.Double.AtanPi(System.Double);Not V8 maths: add a JsMath port first
+M:System.Double.Atan2Pi(System.Double,System.Double);Not V8 maths: add a JsMath port first
+M:System.Double.Sinh(System.Double);Not V8 maths: add a JsMath port first
+M:System.Double.Cosh(System.Double);Not V8 maths: add a JsMath port first
+M:System.Double.Tanh(System.Double);Not V8 maths: add a JsMath port first
+M:System.Double.Asinh(System.Double);Not V8 maths: add a JsMath port first
+M:System.Double.Acosh(System.Double);Not V8 maths: add a JsMath port first
+M:System.Double.Atanh(System.Double);Not V8 maths: add a JsMath port first
+M:System.Double.FusedMultiplyAdd(System.Double,System.Double,System.Double);JavaScript has no fused multiply-add: round after each operation
+M:System.Double.MultiplyAddEstimate(System.Double,System.Double,System.Double);JavaScript has no fused multiply-add: round after each operation
+M:System.Double.ReciprocalEstimate(System.Double);An estimate differs by machine
+M:System.Double.ReciprocalSqrtEstimate(System.Double);An estimate differs by machine
+M:System.Double.Lerp(System.Double,System.Double,System.Double);Not three's lerp formula: write it as three does
+M:System.Double.DegreesToRadians(System.Double);Not three's MathUtils formula: write it as three does
+M:System.Double.RadiansToDegrees(System.Double);Not three's MathUtils formula: write it as three does
+M:System.Double.RootN(System.Double,System.Int32);Not V8 maths: add a JsMath port first
+# float's generic maths: easy-props computes in doubles, and float's functions are not V8's either.
+M:System.Single.Round(System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.Round(System.Single,System.Int32);Single-precision maths: easy-props computes in doubles
+M:System.Single.Round(System.Single,System.MidpointRounding);Single-precision maths: easy-props computes in doubles
+M:System.Single.Round(System.Single,System.Int32,System.MidpointRounding);Single-precision maths: easy-props computes in doubles
+M:System.Single.Sqrt(System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.Sin(System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.Cos(System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.SinCos(System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.Tan(System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.Asin(System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.Acos(System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.Atan(System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.Atan2(System.Single,System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.Exp(System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.Log(System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.Log(System.Single,System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.Log10(System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.Pow(System.Single,System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.Hypot(System.Single,System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.RootN(System.Single,System.Int32);Single-precision maths: easy-props computes in doubles
+M:System.Single.Exp2(System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.Exp10(System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.ExpM1(System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.Exp2M1(System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.Exp10M1(System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.LogP1(System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.Log2P1(System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.Log10P1(System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.Log2(System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.Cbrt(System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.SinPi(System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.CosPi(System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.TanPi(System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.SinCosPi(System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.AsinPi(System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.AcosPi(System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.AtanPi(System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.Atan2Pi(System.Single,System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.Sinh(System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.Cosh(System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.Tanh(System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.Asinh(System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.Acosh(System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.Atanh(System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.FusedMultiplyAdd(System.Single,System.Single,System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.MultiplyAddEstimate(System.Single,System.Single,System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.ReciprocalEstimate(System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.ReciprocalSqrtEstimate(System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.DegreesToRadians(System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.RadiansToDegrees(System.Single);Single-precision maths: easy-props computes in doubles
+M:System.Single.Lerp(System.Single,System.Single,System.Single);Single-precision maths: easy-props computes in doubles

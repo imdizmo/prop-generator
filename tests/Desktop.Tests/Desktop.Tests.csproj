@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- The window's tests: it runs in Avalonia's headless mode (no screen, no OpenGL), driven with mouse input, and
+       paints with a fake painter. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>PropGenerator.Desktop.Tests</RootNamespace>
+    <!-- Test methods need no doc comment: their names say what they check. -->
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+    <!-- IMeshRecipe's builds take an optional cancel token (for the engine's queues); the tests call them to completion. -->
+    <NoWarn>$(NoWarn);xUnit1051</NoWarn>
+    <!-- A stuck test is dumped and stopped after 5 minutes (testconfig.json). -->
+    <TestingPlatformCommandLineArguments>$(TestingPlatformCommandLineArguments) --config-file $(MSBuildThisFileDirectory)../testconfig.json</TestingPlatformCommandLineArguments>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="xunit.v3.mtp-v2" Version="3.2.2" />
+    <PackageReference Include="Microsoft.Testing.Extensions.HangDump" Version="2.5.1" />
+    <PackageReference Include="Avalonia.Headless.XUnit" Version="12.1.4" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Two of Nature.Tests' helpers, shared as source: the repository's fixtures folder and a GLB reader. -->
+    <Compile Include="../Nature.Tests/Support/Fixture.cs;../Nature.Tests/Support/GlbFile.cs" Link="Support/Nature/%(Filename)%(Extension)" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/PropGenerator.Desktop/PropGenerator.Desktop.csproj" />
+    <ProjectReference Include="../../src/PropGenerator.Nature/PropGenerator.Nature.csproj" />
+  </ItemGroup>
+</Project>

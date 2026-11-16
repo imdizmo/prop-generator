@@ -1,0 +1,37 @@
+# Builds the app and runs the tests on every push and pull request: the painter's, Core's, Engine's and Desktop's (the
+# same as the release runs). Nature.Tests (easy-props' numbers and the pins of our own kinds, over ten minutes) runs
+# locally before a merge, not here.
+name: Build and test
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+      - uses: actions/setup-dotnet@0f4a354dd5547a28c70b7853dbd95d5b67886e73  # v6.1.0
+        with:
+          dotnet-version: 10.0.x  # the latest patched SDK and runtime, not global.json's 10.0.100 floor
+      - name: Python with numpy for the painter (its tests, and Core's tests of the worker)
+        run: |
+          python3 -m venv "$RUNNER_TEMP/venv"
+          "$RUNNER_TEMP/venv/bin/pip" install -q numpy==2.5.5 pillow pytest
+          echo "$RUNNER_TEMP/venv/bin" >> "$GITHUB_PATH"
+      - name: Build
+        run: dotnet build PropGenerator.slnx -c Release
+      - name: Every shipped package has its licence for the release's licenses/
+        run: python3 -I scripts/third_party_licenses.py src/PropGenerator.Desktop/obj/project.assets.json linux-x64 ~/.nuget/packages
+      - name: Painter tests
+        run: cd painter && python3 -m pytest tests -q
+      - name: Core tests
+        run: dotnet test --project tests/Core.Tests/Core.Tests.csproj -c Release --no-build
+      - name: Engine tests
+        run: dotnet test --project tests/Engine.Tests/Engine.Tests.csproj -c Release --no-build
+      - name: Desktop tests
+        run: xvfb-run -a dotnet test --project tests/Desktop.Tests/Desktop.Tests.csproj -c Release --no-build

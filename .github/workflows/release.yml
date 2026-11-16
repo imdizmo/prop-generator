@@ -1,0 +1,99 @@
+# Builds Prop Generator with scripts/package.sh and, for a pushed tag v<VERSION>, publishes a GitHub release with the
+# packages, its notes the CHANGELOG's section for the version. Running it by hand (Actions > Release > Run workflow)
+# tests and builds only, as v<VERSION>-ci.<run number>, and keeps the packages as workflow artifacts.
+# Version 0.1.0 is Linux only (a .tar.gz and an AppImage). Windows is planned: it becomes one more row of the publish
+# matrix (win-x64 on windows-latest, a .zip).
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+      - uses: actions/setup-dotnet@0f4a354dd5547a28c70b7853dbd95d5b67886e73  # v6.1.0
+        with:
+          dotnet-version: 10.0.x  # the latest patched SDK and runtime, not global.json's 10.0.100 floor
+      - name: Version
+        id: version
+        # a tag gives the version and must match VERSION; a run by hand gets v<VERSION>-ci.<run number>
+        run: |
+          if [[ "$GITHUB_REF" == refs/tags/v* ]]; then
+            v="$GITHUB_REF_NAME"
+            test "$v" = "v$(tr -d '[:space:]' < VERSION)" || { echo "tag $v does not match VERSION" >&2; exit 1; }
+          else
+            v="v$(tr -d '[:space:]' < VERSION)-ci.$GITHUB_RUN_NUMBER"
+          fi
+          echo "version=$v" >> "$GITHUB_OUTPUT"
+      - name: Python with numpy for the painter (its tests, and Core's tests of the worker)
+        run: |
+          python3 -m venv "$RUNNER_TEMP/venv"
+          "$RUNNER_TEMP/venv/bin/pip" install -q numpy==2.5.5 pillow pytest
+          echo "$RUNNER_TEMP/venv/bin" >> "$GITHUB_PATH"
+      - name: Build
+        run: dotnet build PropGenerator.slnx -c Release
+      - name: Painter tests
+        run: cd painter && python3 -m pytest tests -q
+      - name: Core tests
+        run: dotnet test --project tests/Core.Tests/Core.Tests.csproj -c Release --no-build
+      - name: Engine tests
+        run: dotnet test --project tests/Engine.Tests/Engine.Tests.csproj -c Release --no-build
+      - name: Desktop tests
+        run: xvfb-run -a dotnet test --project tests/Desktop.Tests/Desktop.Tests.csproj -c Release --no-build
+
+  publish:
+    needs: test
+    strategy:
+      matrix:
+        include:
+          - rid: linux-x64
+            os: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+      - uses: actions/setup-dotnet@0f4a354dd5547a28c70b7853dbd95d5b67886e73  # v6.1.0
+        with:
+          dotnet-version: 10.0.x  # the latest patched SDK and runtime, not global.json's 10.0.100 floor
+      - name: Package
+        shell: bash
+        run: scripts/package.sh ${{ matrix.rid }} "${{ needs.test.outputs.version }}" dist
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02  # v4.6.2
+        with:
+          name: packages-${{ matrix.rid }}
+          path: |
+            dist/*.tar.gz
+            dist/*.AppImage
+            dist/*.zip
+          if-no-files-found: error
+          retention-days: 14
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: publish
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093  # v4.3.0
+        with:
+          pattern: packages-*
+          path: dist
+          merge-multiple: true
+      - name: Release notes from the CHANGELOG
+        run: |
+          awk -v v="## $GITHUB_REF_NAME" '$0 == v {on = 1; next} /^## / {on = 0} on' CHANGELOG.md > notes.md
+          test -s notes.md || { echo "CHANGELOG.md has no section ## $GITHUB_REF_NAME" >&2; exit 1; }
+      - name: Publish the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" dist/* --repo "$GITHUB_REPOSITORY" --title "Prop Generator ${GITHUB_REF_NAME#v}" --notes-file notes.md --verify-tag

@@ -1,0 +1,761 @@
+{
+  "how": "easy-props 0.4.2 (27c6956) cut-rock goldens, each preset\u0027s own case (low-poly): per detail level (1, 0.4, 0.12) the kept parts\u0027 faces, the bounds of their positions, and a SHA-256 of the positions rounded to 1e-4 (parts in order, values as \u0022%d,\u0022 of round(v * 1e4)).",
+  "presets": [
+    {
+      "preset": "boulder",
+      "seed": 401,
+      "parameters": {
+        "build": "painted",
+        "kind": "boulder",
+        "width": 3,
+        "height": 2,
+        "depth": 2.6,
+        "chunks": 4,
+        "faces": 0.6,
+        "cuts": 0.65,
+        "edges": 0.7,
+        "bend": 0.5,
+        "moss": 0.5,
+        "variation": 0.5,
+        "palette": "lavender"
+      },
+      "levels": [
+        {
+          "faces": 913,
+          "min": [
+            -1.5186,
+            -0.099,
+            -1.3304
+          ],
+          "max": [
+            1.4722,
+            2.0001,
+            1.3229
+          ],
+          "hash": "b43bd27040e76797347c4e5945ba49668be6bc0d08784a164344d7b09cc09dda"
+        },
+        {
+          "faces": 310,
+          "min": [
+            -1.5186,
+            -0.099,
+            -1.3304
+          ],
+          "max": [
+            1.4722,
+            2.0001,
+            1.3229
+          ],
+          "hash": "a4a19f0ca4632df3591d904008f128cea160139dac219051dfbd70fc7980c13f"
+        },
+        {
+          "faces": 101,
+          "min": [
+            -1.5,
+            -0.083,
+            -1.3
+          ],
+          "max": [
+            1.5,
+            2,
+            1.3
+          ],
+          "hash": "d8ee9a1a672e1bcefe06f2967981b42a940ebe4e1d3a18c2d9152c3ca898fdb4"
+        }
+      ]
+    },
+    {
+      "preset": "cliff-face",
+      "seed": 407,
+      "parameters": {
+        "build": "painted",
+        "kind": "cliff",
+        "width": 14,
+        "height": 10,
+        "depth": 6,
+        "chunks": 18,
+        "faces": 0.45,
+        "cuts": 0.65,
+        "edges": 0.7,
+        "bend": 0.5,
+        "moss": 0.25,
+        "variation": 0.5,
+        "palette": "lavender"
+      },
+      "levels": [
+        {
+          "faces": 2211,
+          "min": [
+            -7.0386,
+            -0.475,
+            -3.088
+          ],
+          "max": [
+            7.1219,
+            10.0611,
+            3.0658
+          ],
+          "hash": "548fafcb168da97203b561a419a15520e7d415bdd3338df39402fe45b5c1a685"
+        },
+        {
+          "faces": 843,
+          "min": [
+            -7.0386,
+            -0.475,
+            -3.088
+          ],
+          "max": [
+            7.1219,
+            10.0611,
+            3.0658
+          ],
+          "hash": "65709834964b10151bbd4d07459af81d50f1ecfb642622cbc3262e8d86396c94"
+        },
+        {
+          "faces": 236,
+          "min": [
+            -7,
+            -0.4058,
+            -3
+          ],
+          "max": [
+            7,
+            10,
+            3
+          ],
+          "hash": "1077be0a1bfb98b0696a2463090b5fcd03868a9d4ce9c9517d9e5788f5870ec8"
+        }
+      ]
+    },
+    {
+      "preset": "field-stone",
+      "seed": 404,
+      "parameters": {
+        "build": "painted",
+        "kind": "boulder",
+        "width": 0.9,
+        "height": 0.5,
+        "depth": 0.7,
+        "chunks": 1,
+        "faces": 0.45,
+        "cuts": 0.5,
+        "edges": 0.7,
+        "bend": 0.5,
+        "moss": 0.3,
+        "variation": 0.5,
+        "palette": "lavender"
+      },
+      "levels": [
+        {
+          "faces": 213,
+          "min": [
+            -0.4455,
+            -0.0252,
+            -0.342
+          ],
+          "max": [
+            0.4519,
+            0.4993,
+            0.3521
+          ],
+          "hash": "203e97071a747706d947039174b5b5f1ad459f978974c4d445373b6710eea929"
+        },
+        {
+          "faces": 71,
+          "min": [
+            -0.4455,
+            -0.0252,
+            -0.342
+          ],
+          "max": [
+            0.4519,
+            0.4993,
+            0.3521
+          ],
+          "hash": "24289d639e6946830e02cf392a60b230a9676f647f355eba15c0c2fb19551e98"
+        },
+        {
+          "faces": 26,
+          "min": [
+            -0.45,
+            -0.023,
+            -0.35
+          ],
+          "max": [
+            0.45,
+            0.5,
+            0.35
+          ],
+          "hash": "c643e45f9ecb74650bae9690ca2752d43690445b2ba6c3974d2e24663d9677f8"
+        }
+      ]
+    },
+    {
+      "preset": "grassy-outcrop",
+      "seed": 410,
+      "parameters": {
+        "build": "painted",
+        "kind": "outcrop",
+        "width": 6,
+        "height": 2.6,
+        "depth": 3.5,
+        "chunks": 5,
+        "faces": 0.6,
+        "cuts": 0.65,
+        "edges": 0.7,
+        "bend": 0.5,
+        "moss": 0.85,
+        "variation": 0.5,
+        "palette": "lavender"
+      },
+      "levels": [
+        {
+          "faces": 1142,
+          "min": [
+            -3.0239,
+            -0.1341,
+            -1.7632
+          ],
+          "max": [
+            2.9624,
+            2.6197,
+            1.757
+          ],
+          "hash": "1ea9893d9db323face52ad4f17e9e1c14ceb90a86736ac2fd3cd2d6242c393b3"
+        },
+        {
+          "faces": 398,
+          "min": [
+            -3.0239,
+            -0.1341,
+            -1.7632
+          ],
+          "max": [
+            2.9624,
+            2.6197,
+            1.757
+          ],
+          "hash": "d9d08e411fc3924269f386c05cccc8f6857725b93bf05d6afe5ed53e4bb64326"
+        },
+        {
+          "faces": 144,
+          "min": [
+            -3,
+            -0.1222,
+            -1.75
+          ],
+          "max": [
+            3,
+            2.6,
+            1.75
+          ],
+          "hash": "a33c0fb6cd954efe118e2faeb76b5bc5f6869cb7dcfa24677fcfe2785df700e6"
+        }
+      ]
+    },
+    {
+      "preset": "low-ledge",
+      "seed": 411,
+      "parameters": {
+        "build": "painted",
+        "kind": "outcrop",
+        "width": 8,
+        "height": 1.3,
+        "depth": 3,
+        "chunks": 7,
+        "faces": 0.6,
+        "cuts": 0.65,
+        "edges": 0.7,
+        "bend": 0.5,
+        "moss": 0.7,
+        "variation": 0.5,
+        "palette": "slate"
+      },
+      "levels": [
+        {
+          "faces": 1369,
+          "min": [
+            -4.0493,
+            -0.0827,
+            -1.5224
+          ],
+          "max": [
+            3.954,
+            1.3303,
+            1.4915
+          ],
+          "hash": "6f5549906e1550499dd0106cb33e93c49ccead4b32f13d1ce09b5909edfc34b1"
+        },
+        {
+          "faces": 487,
+          "min": [
+            -4.0493,
+            -0.0827,
+            -1.5224
+          ],
+          "max": [
+            3.954,
+            1.3303,
+            1.4915
+          ],
+          "hash": "dd50f1bbbb2d4cbff0ff48b2a8b5f67f07a7b0d58bd7936aa30063aefa65b92d"
+        },
+        {
+          "faces": 170,
+          "min": [
+            -4,
+            -0.0779,
+            -1.5
+          ],
+          "max": [
+            4,
+            1.3,
+            1.5
+          ],
+          "hash": "64152cfa0d1b2382f1813b4394201e4a54caa52b6bc128aa2bc65eca57060db3"
+        }
+      ]
+    },
+    {
+      "preset": "mossy-boulder",
+      "seed": 421,
+      "parameters": {
+        "build": "painted",
+        "kind": "boulder",
+        "width": 3.4,
+        "height": 2,
+        "depth": 3,
+        "chunks": 3,
+        "faces": 0.8,
+        "cuts": 0.65,
+        "edges": 0.7,
+        "bend": 0.5,
+        "moss": 0.7,
+        "variation": 0.5,
+        "palette": "lavender"
+      },
+      "levels": [
+        {
+          "faces": 669,
+          "min": [
+            -1.717,
+            -0.1001,
+            -1.5322
+          ],
+          "max": [
+            1.6804,
+            2.0138,
+            1.4798
+          ],
+          "hash": "2c251ac8114269e661d88bf6838dc8680e2233c65c03d29b4bd4181d629bd203"
+        },
+        {
+          "faces": 223,
+          "min": [
+            -1.717,
+            -0.1001,
+            -1.5322
+          ],
+          "max": [
+            1.6804,
+            2.0138,
+            1.4798
+          ],
+          "hash": "c45cf84ae7f974ca52acf12acbd52ddcd0c363c65a95a1f128f650b1b2a3ae02"
+        },
+        {
+          "faces": 80,
+          "min": [
+            -1.7,
+            -0.0766,
+            -1.5
+          ],
+          "max": [
+            1.7,
+            2,
+            1.5
+          ],
+          "hash": "b42e1c07a52ee0f3e2c1f863a57cce9ecf9ebad0b1f318ecc179ef9d4810f707"
+        }
+      ]
+    },
+    {
+      "preset": "red-mesa",
+      "seed": 409,
+      "parameters": {
+        "build": "painted",
+        "kind": "cliff",
+        "width": 16,
+        "height": 6,
+        "depth": 11,
+        "chunks": 14,
+        "faces": 0.6,
+        "cuts": 0.65,
+        "edges": 0.7,
+        "bend": 0.5,
+        "moss": 0,
+        "variation": 0.5,
+        "palette": "redrock"
+      },
+      "levels": [
+        {
+          "faces": 2188,
+          "min": [
+            -8.1367,
+            -0.321,
+            -5.5841
+          ],
+          "max": [
+            8.0866,
+            6.0114,
+            5.6125
+          ],
+          "hash": "fd948e50b0a4c147a40690a9b4fb6db25e992c880b920dfc313f99259af7ed82"
+        },
+        {
+          "faces": 811,
+          "min": [
+            -8.1367,
+            -0.321,
+            -5.5841
+          ],
+          "max": [
+            8.0866,
+            6.0114,
+            5.6125
+          ],
+          "hash": "deb351d9d3f409a2a2d5e7a05b435a8a3b720a2765649cd8a543a63a12b760ca"
+        },
+        {
+          "faces": 279,
+          "min": [
+            -8,
+            -0.2482,
+            -5.5
+          ],
+          "max": [
+            8,
+            6,
+            5.5
+          ],
+          "hash": "af2c4b961180974d3f7f5c19aaee289b4fa15fb157ad901ac4414a79d5a54740"
+        }
+      ]
+    },
+    {
+      "preset": "river-stone",
+      "seed": 405,
+      "parameters": {
+        "build": "painted",
+        "kind": "boulder",
+        "width": 0.7,
+        "height": 0.25,
+        "depth": 0.5,
+        "chunks": 1,
+        "faces": 0.7,
+        "cuts": 0.2,
+        "edges": 1,
+        "bend": 0.5,
+        "moss": 0,
+        "variation": 0.5,
+        "palette": "slate"
+      },
+      "levels": [
+        {
+          "faces": 366,
+          "min": [
+            -0.3492,
+            -0.0136,
+            -0.2454
+          ],
+          "max": [
+            0.3492,
+            0.253,
+            0.249
+          ],
+          "hash": "6f798eb7e56038fb697d30111747fea64b083ba6ff6f8de6ee2caec901f208e3"
+        },
+        {
+          "faces": 122,
+          "min": [
+            -0.3492,
+            -0.0136,
+            -0.2454
+          ],
+          "max": [
+            0.3492,
+            0.253,
+            0.249
+          ],
+          "hash": "59527492bbc329e469576d23f2761cb0d4f7ee3299cfd939b9e11c5089765aab"
+        },
+        {
+          "faces": 48,
+          "min": [
+            -0.35,
+            -0.0125,
+            -0.25
+          ],
+          "max": [
+            0.35,
+            0.25,
+            0.25
+          ],
+          "hash": "4c46f50e342c1f56c1be2132a9a1bcfadec126f012ceaf28ac7e96ec6d61e272"
+        }
+      ]
+    },
+    {
+      "preset": "sea-stack",
+      "seed": 408,
+      "parameters": {
+        "build": "painted",
+        "kind": "pillar",
+        "width": 5,
+        "height": 11,
+        "depth": 4.5,
+        "chunks": 5,
+        "faces": 0.6,
+        "cuts": 0.65,
+        "edges": 0.7,
+        "bend": 0.5,
+        "moss": 0.5,
+        "variation": 0.5,
+        "palette": "slate"
+      },
+      "levels": [
+        {
+          "faces": 1140,
+          "min": [
+            -2.5628,
+            -0.462,
+            -2.3141
+          ],
+          "max": [
+            2.4917,
+            11.0511,
+            2.2749
+          ],
+          "hash": "1351d409ef4b7aa52aadb22d316aa3479fd6c27432db82cb487ea3302fce0dfd"
+        },
+        {
+          "faces": 394,
+          "min": [
+            -2.5628,
+            -0.462,
+            -2.3141
+          ],
+          "max": [
+            2.4917,
+            11.0511,
+            2.2749
+          ],
+          "hash": "47d46f557ae8fefb74a8fcd7fff45a980880afc3cdcb83f7c0e79304211b225d"
+        },
+        {
+          "faces": 146,
+          "min": [
+            -2.5,
+            -0.4396,
+            -2.25
+          ],
+          "max": [
+            2.5,
+            11,
+            2.25
+          ],
+          "hash": "68e82650c5724add2c993d8e791f76fa1056c96438a76d65fc10e94a1373c77c"
+        }
+      ]
+    },
+    {
+      "preset": "split-boulder",
+      "seed": 403,
+      "parameters": {
+        "build": "painted",
+        "kind": "boulder",
+        "width": 2.8,
+        "height": 2.2,
+        "depth": 2.4,
+        "chunks": 2,
+        "faces": 0.8,
+        "cuts": 1,
+        "edges": 0.35,
+        "bend": 0.5,
+        "moss": 0,
+        "variation": 0.5,
+        "palette": "granite"
+      },
+      "levels": [
+        {
+          "faces": 474,
+          "min": [
+            -1.4045,
+            -0.0862,
+            -1.226
+          ],
+          "max": [
+            1.3719,
+            2.2143,
+            1.2118
+          ],
+          "hash": "1c140ead1efac597c4adbfe670471f0d317faa2b4a75535df92985bec0a2d7c6"
+        },
+        {
+          "faces": 158,
+          "min": [
+            -1.4045,
+            -0.0862,
+            -1.226
+          ],
+          "max": [
+            1.3719,
+            2.2143,
+            1.2118
+          ],
+          "hash": "fa8256d82878a5ed8afcce9abb21154737d4d68c0dba311027104e5a377c820e"
+        },
+        {
+          "faces": 53,
+          "min": [
+            -1.4,
+            -0.0863,
+            -1.2
+          ],
+          "max": [
+            1.4,
+            2.2,
+            1.2
+          ],
+          "hash": "89a9d276ca1536ce393fab233b25cbcebb3b108feb708788203d339b10e38886"
+        }
+      ]
+    },
+    {
+      "preset": "standing-stone",
+      "seed": 406,
+      "parameters": {
+        "build": "painted",
+        "kind": "pillar",
+        "width": 1,
+        "height": 3,
+        "depth": 0.7,
+        "chunks": 1,
+        "faces": 0.6,
+        "cuts": 0.65,
+        "edges": 0.7,
+        "bend": 0.5,
+        "moss": 0.35,
+        "variation": 0.5,
+        "palette": "lavender"
+      },
+      "levels": [
+        {
+          "faces": 273,
+          "min": [
+            -0.5075,
+            -0.1141,
+            -0.3668
+          ],
+          "max": [
+            0.5163,
+            3.0102,
+            0.3507
+          ],
+          "hash": "8edaace12e2b53328c919715fcc66578a6de873318702f623fe73b1cf14d69bd"
+        },
+        {
+          "faces": 91,
+          "min": [
+            -0.5075,
+            -0.1141,
+            -0.3668
+          ],
+          "max": [
+            0.5163,
+            3.0102,
+            0.3507
+          ],
+          "hash": "f15cc9ac4e2a291ad3310ff0af5db30ae4490d9c0d4b200225a83838d728845e"
+        },
+        {
+          "faces": 35,
+          "min": [
+            -0.5,
+            -0.1137,
+            -0.35
+          ],
+          "max": [
+            0.5,
+            3,
+            0.35
+          ],
+          "hash": "13be47b8905f54766608b346e5b10ae2329ee39aa74e1f3a1686192c7ccac1b4"
+        }
+      ]
+    },
+    {
+      "preset": "step-stone",
+      "seed": 412,
+      "parameters": {
+        "build": "painted",
+        "kind": "boulder",
+        "width": 1,
+        "height": 0.14,
+        "depth": 0.8,
+        "chunks": 1,
+        "faces": 0.35,
+        "cuts": 0.45,
+        "edges": 0.7,
+        "bend": 0.5,
+        "moss": 0,
+        "variation": 0.3,
+        "palette": "lavender"
+      },
+      "levels": [
+        {
+          "faces": 198,
+          "min": [
+            -0.5065,
+            -0.0102,
+            -0.3991
+          ],
+          "max": [
+            0.4996,
+            0.1435,
+            0.3976
+          ],
+          "hash": "250baf077c36303c2bb08a25272ceb18ddc734bbae3943294c208438bde2e85f"
+        },
+        {
+          "faces": 66,
+          "min": [
+            -0.5065,
+            -0.0102,
+            -0.3991
+          ],
+          "max": [
+            0.4996,
+            0.1435,
+            0.3976
+          ],
+          "hash": "b09d5bea4466ea2222248786fb9e4906853a8ba95d34c6a2764e1022695e2cb2"
+        },
+        {
+          "faces": 21,
+          "min": [
+            -0.5,
+            -0.01,
+            -0.4
+          ],
+          "max": [
+            0.5,
+            0.14,
+            0.4
+          ],
+          "hash": "3270dd6ba9a7c6f81c5cf92fa591de9a05e335cb362dd6d313c41da8629b3d39"
+        }
+      ]
+    }
+  ]
+}

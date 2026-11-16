@@ -1,0 +1,50 @@
+{
+  "format": 1,
+  "app": "0.1.0",
+  "piece": {
+    "recipe": "palm-tree",
+    "faces": []
+  },
+  "settings": {
+    "height": 5.5,
+    "trunkRadius": 0.34,
+    "taper": 0.72,
+    "bend": "curved",
+    "twist": 0,
+    "rings": 14,
+    "ringDepth": 0.08,
+    "crownSize": 0.42,
+    "frondCount": 9,
+    "frondLength": 2.8,
+    "frondArch": "arched",
+    "leaflets": 16,
+    "coconutCount": 4,
+    "coconutSize": 0.16,
+    "seed": 1
+  },
+  "history": {
+    "index": 0,
+    "steps": [
+      {
+        "label": "Old-style palm",
+        "settings": {
+          "height": 5.5,
+          "trunkRadius": 0.34,
+          "taper": 0.72,
+          "bend": "curved",
+          "twist": 0,
+          "rings": 14,
+          "ringDepth": 0.08,
+          "crownSize": 0.42,
+          "frondCount": 9,
+          "frondLength": 2.8,
+          "frondArch": "arched",
+          "leaflets": 16,
+          "coconutCount": 4,
+          "coconutSize": 0.16,
+          "seed": 1
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "format": 1,
+  "app": "0.1.0",
+  "piece": {
+    "recipe": "cut-rock",
+    "faces": []
+  },
+  "settings": {
+    "build": "painted",
+    "kind": "boulder",
+    "width": 3,
+    "height": 2,
+    "depth": 2.6,
+    "chunks": 4,
+    "faces": 0.6,
+    "cuts": 0.65,
+    "edges": 0.7,
+    "bend": 0.5,
+    "moss": 0.5,
+    "variation": 0.5,
+    "palette": "lavender",
+    "stoneShadow": [
+      0.24705882,
+      0.25490198,
+      0.5019608
+    ],
+    "stoneDark": [
+      0.39215687,
+      0.40392157,
+      0.65882355
+    ],
+    "stoneLight": [
+      0.58431375,
+      0.59607846,
+      0.83137256
+    ],
+    "stoneHighlight": [
+      0.8509804,
+      0.85490197,
+      0.9647059
+    ],
+    "seed": 401
+  },
+  "history": {
+    "index": 0,
+    "steps": [
+      {
+        "label": "Boulder",
+        "settings": {
+          "build": "painted",
+          "kind": "boulder",
+          "width": 3,
+          "height": 2,
+          "depth": 2.6,
+          "chunks": 4,
+          "faces": 0.6,
+          "cuts": 0.65,
+          "edges": 0.7,
+          "bend": 0.5,
+          "moss": 0.5,
+          "variation": 0.5,
+          "palette": "lavender",
+          "stoneShadow": [
+            0.24705882,
+            0.25490198,
+            0.5019608
+          ],
+          "stoneDark": [
+            0.39215687,
+            0.40392157,
+            0.65882355
+          ],
+          "stoneLight": [
+            0.58431375,
+            0.59607846,
+            0.83137256
+          ],
+          "stoneHighlight": [
+            0.8509804,
+            0.85490197,
+            0.9647059
+          ],
+          "seed": 401
+        }
+      }
+    ]
+  }
+}

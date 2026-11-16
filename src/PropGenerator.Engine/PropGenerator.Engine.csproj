@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- easy-props' own code run in our process: its bundle (Resources/engine.js, built by tools/engine) in a V8 runtime
+       (ClearScript), on its own thread, with typed calls returning plain C# data. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>PropGenerator.Engine</RootNamespace>
+    <InvariantGlobalization>true</InvariantGlobalization>
+  </PropertyGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="Engine.Tests" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- The bundle and its pin (tools/engine writes them; they may be missing until it has run). Named by their path
+         under Resources/, e.g. PropGenerator.Engine.Resources/engine.js. -->
+    <EmbeddedResource Include="Resources/**/*" LogicalName="PropGenerator.Engine.Resources/%(RecursiveDir)%(Filename)%(Extension)" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.ClearScript.V8" Version="7.5.1.1" />
+    <PackageReference Include="Microsoft.ClearScript.V8.Native.linux-x64" Version="7.5.1.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../PropGenerator.Core/PropGenerator.Core.csproj" />
+  </ItemGroup>
+</Project>

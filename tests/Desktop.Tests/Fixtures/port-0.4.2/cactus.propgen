@@ -1,0 +1,130 @@
+{
+  "format": 1,
+  "app": "0.1.0",
+  "piece": {
+    "recipe": "cactus",
+    "faces": []
+  },
+  "settings": {
+    "build": "painted",
+    "kind": "column",
+    "height": 4,
+    "thickness": 0.42,
+    "lean": 0.04,
+    "arms": 3,
+    "armHeight": 0.36,
+    "pads": 12,
+    "ribs": 12,
+    "ribDepth": 0.55,
+    "spines": 0.6,
+    "flowers": 0,
+    "flowerColour": "pink",
+    "flowerDeep": [
+      0.78431374,
+      0.2509804,
+      0.4862745
+    ],
+    "flowerMiddle": [
+      0.9254902,
+      0.4862745,
+      0.6901961
+    ],
+    "flowerLight": [
+      1,
+      0.8392157,
+      0.91764706
+    ],
+    "palette": "desert",
+    "cactusShadow": [
+      0.09019608,
+      0.22745098,
+      0.14117648
+    ],
+    "cactusDark": [
+      0.18431373,
+      0.41568628,
+      0.22745098
+    ],
+    "cactusLight": [
+      0.36862746,
+      0.6039216,
+      0.29803923
+    ],
+    "cactusHighlight": [
+      0.65882355,
+      0.8117647,
+      0.47058824
+    ],
+    "spineColour": [
+      0.9490196,
+      0.91764706,
+      0.8156863
+    ],
+    "seed": 601
+  },
+  "history": {
+    "index": 0,
+    "steps": [
+      {
+        "label": "Saguaro",
+        "settings": {
+          "build": "painted",
+          "kind": "column",
+          "height": 4,
+          "thickness": 0.42,
+          "lean": 0.04,
+          "arms": 3,
+          "armHeight": 0.36,
+          "pads": 12,
+          "ribs": 12,
+          "ribDepth": 0.55,
+          "spines": 0.6,
+          "flowers": 0,
+          "flowerColour": "pink",
+          "flowerDeep": [
+            0.78431374,
+            0.2509804,
+            0.4862745
+          ],
+          "flowerMiddle": [
+            0.9254902,
+            0.4862745,
+            0.6901961
+          ],
+          "flowerLight": [
+            1,
+            0.8392157,
+            0.91764706
+          ],
+          "palette": "desert",
+          "cactusShadow": [
+            0.09019608,
+            0.22745098,
+            0.14117648
+          ],
+          "cactusDark": [
+            0.18431373,
+            0.41568628,
+            0.22745098
+          ],
+          "cactusLight": [
+            0.36862746,
+            0.6039216,
+            0.29803923
+          ],
+          "cactusHighlight": [
+            0.65882355,
+            0.8117647,
+            0.47058824
+          ],
+          "spineColour": [
+            0.9490196,
+            0.91764706,
+            0.8156863
+          ],
+          "seed": 601
+        }
+      }
+    ]
+  }
+}
