@@ -36,3 +36,22 @@ jobs:
       - name: Desktop tests
         # each test window watches the Blender inbox; the runner allows 128 watchers per user, the suite holds ~150
         run: sudo sysctl -q -w fs.inotify.max_user_instances=1024 && xvfb-run -a dotnet test --project tests/Desktop.Tests/Desktop.Tests.csproj -c Release --no-build
+
+  windows:
+    # What differs on Windows: V8's Windows library (the Engine suite) and the painter waiting on its parent's handle,
+    # and painting itself (the painter's tests but the two that watch processes through /proc). Core's worker tests and
+    # the Desktop suite drive Linux processes and run on Linux only.
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+      - uses: actions/setup-dotnet@0f4a354dd5547a28c70b7853dbd95d5b67886e73  # v6.1.0
+        with:
+          dotnet-version: 10.0.x
+      - name: Python with numpy for the painter
+        run: python -m pip install -q numpy==2.5.5 pillow pytest
+      - name: Build
+        run: dotnet build PropGenerator.slnx -c Release
+      - name: Painter tests
+        run: cd painter; python -m pytest tests -q --ignore=tests/test_pool.py --ignore=tests/test_worker.py
+      - name: Engine tests
+        run: dotnet test --project tests/Engine.Tests/Engine.Tests.csproj -c Release --no-build

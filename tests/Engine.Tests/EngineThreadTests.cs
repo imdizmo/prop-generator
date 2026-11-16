@@ -561,7 +561,7 @@ public sealed class EngineThreadTests
         GC.Collect();
         GC.WaitForPendingFinalizers();
         GC.Collect();
-        foreach (string line in File.ReadLines("/proc/self/status"))
+        foreach (string line in OperatingSystem.IsLinux() ? File.ReadLines("/proc/self/status") : [])
         {
             if (line.StartsWith("VmRSS:", StringComparison.Ordinal))
             {

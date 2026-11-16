@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- **Windows x64:** a .zip with everything inside (the .NET runtime, and Python with numpy for the floor painter), as
+  the Jatify Launcher installs it.
 - **Team props:** publish a prop to your team's server and take a teammate's into Your props (Settings > Team, or the
   address the Jatify Launcher gives). Offline stays the default.
 

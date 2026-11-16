@@ -1,8 +1,7 @@
 # Builds Prop Generator with scripts/package.sh and, for a pushed tag v<VERSION>, publishes a GitHub release with the
 # packages, its notes the CHANGELOG's section for the version. Running it by hand (Actions > Release > Run workflow)
 # tests and builds only, as v<VERSION>-ci.<run number>, and keeps the packages as workflow artifacts.
-# Version 0.1.0 is Linux only (a .tar.gz and an AppImage). Windows is planned: it becomes one more row of the publish
-# matrix (win-x64 on windows-latest, a .zip).
+# Linux x64 gets a .tar.gz and an AppImage, Windows x64 a .zip (built on Windows, so its bundled Python is tried there).
 name: Release
 
 on:
@@ -58,6 +57,8 @@ jobs:
         include:
           - rid: linux-x64
             os: ubuntu-latest
+          - rid: win-x64
+            os: windows-latest
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1

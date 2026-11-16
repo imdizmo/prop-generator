@@ -1,14 +1,16 @@
 #!/usr/bin/env bash
-# Builds a release package: scripts/package.sh <rid: linux-x64> <version, v1.2.3> [out dir]
+# Builds a release package: scripts/package.sh <rid: linux-x64|win-x64> <version, v1.2.3> [out dir]
 # The app is published self-contained as one program (no .NET needed to run it); its native libraries (V8, Skia,
 # HarfBuzz) stay beside it, since V8 is loaded from disk. Beside it go the floor painter (painter/), a standalone
 # Python with numpy for the painter (python/, so the user needs no Python), the Blender add-on (blender/), the
 # third-party licences (licenses/) and the docs. Linux x64 gets a .tar.gz (with install-desktop-entry.sh) and an
-# AppImage, each holding one folder, PropGenerator-<version>-<rid>/, with PropGenerator at its top.
-# Only linux-x64 is built for now; Windows (win-x64) is planned: it adds a row to the table below and a .zip.
+# AppImage, Windows x64 a .zip (what the Jatify Launcher installs), each holding one folder,
+# PropGenerator-<version>-<rid>/, with PropGenerator (PropGenerator.exe on Windows) at its top. Either can be built on
+# Linux; the Windows Python is only tried (import numpy) when this runs on Windows.
 set -euo pipefail
-rid="${1:?usage: package.sh <rid: linux-x64> <version, v1.2.3> [out dir]}"; version="${2:?version}"; out="${3:-dist}"
+rid="${1:?usage: package.sh <rid: linux-x64|win-x64> <version, v1.2.3> [out dir]}"; version="${2:?version}"; out="${3:-dist}"
 root="$(cd "$(dirname "$0")/.." && pwd)"
+pyhost="$(command -v python3 || command -v python)"  # the build machine's Python (Windows runners name it python)
 if ! [[ "$version" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$ ]]; then
     echo "version must look like v1.2.3 or v1.2.3-beta.1 (got $version)" >&2
     exit 2
@@ -23,9 +25,23 @@ case "$rid" in
         py=cpython-3.13.18+20261026-x86_64-unknown-linux-gnu-install_only_stripped.tar.gz
         pysum=df15fe60d3ff55bf9dcf25824b5572756bb8816ff93865a273d3301d7066a8b7
         sitedir=python/lib/python3.13/site-packages
+        pylib=python/lib/python3.13
+        pyexe=python/bin/python3
         wheel=numpy-2.5.5-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
-        wheelsum=824025655df929268bfe6b47ed91a00d14209a6f760847cf150be446829e1ce4 ;;
-    *) echo "rid must be linux-x64 (got $rid; Windows is planned, not in this version)" >&2; exit 2 ;;
+        wheelsum=824025655df929268bfe6b47ed91a00d14209a6f760847cf150be446829e1ce4
+        native=linux ;;
+    win-x64)
+        exe=PropGenerator.exe
+        v8=ClearScriptV8.win-x64.dll
+        py=cpython-3.13.18+20261026-x86_64-pc-windows-msvc-install_only_stripped.tar.gz
+        pysum=7369f7a35f261222a6ac8b3a87c1c88eeebee8af945d85346202591a64038dd3
+        sitedir=python/Lib/site-packages
+        pylib=python/Lib
+        pyexe=python/python.exe
+        wheel=numpy-2.5.5-cp313-cp313-win_amd64.whl
+        wheelsum=e0608d1585557b68dcb6a70a41654f7536567960afad79d91752d2863b242b68
+        native=win32 ;;
+    *) echo "rid must be linux-x64 or win-x64 (got $rid)" >&2; exit 2 ;;
 esac
 
 name="PropGenerator-${version}-${rid}"
@@ -41,11 +57,13 @@ rm -f "$stage/painter/conftest.py" "$stage/painter/pytest.ini" "$stage/painter/b
 [[ -f "$stage/$exe" && -f "$stage/$v8" ]] || { echo "the publish has no $exe or no $v8 beside it" >&2; exit 1; }
 
 cp "$root/README.md" "$root/LICENSE" "$root/NOTICE.md" "$root/CHANGELOG.md" "$stage/"
-cp "$root/scripts/install-desktop-entry.sh" "$root/src/PropGenerator.Desktop/Assets/icon.png" "$stage/"
+if [[ "$rid" == linux-* ]]; then
+    cp "$root/scripts/install-desktop-entry.sh" "$root/src/PropGenerator.Desktop/Assets/icon.png" "$stage/"
+fi
 
 # The Blender add-on, as the zip Blender installs (Edit > Preferences > Add-ons > Install from Disk).
 mkdir -p "$stage/blender"
-(cd "$root/blender" && python3 -I -c "
+(cd "$root/blender" && "$pyhost" -I -c "
 import sys, zipfile, pathlib
 with zipfile.ZipFile(sys.argv[1], 'w', zipfile.ZIP_DEFLATED) as z:
     for p in sorted(pathlib.Path('prop_generator_bridge').rglob('*')):
@@ -71,13 +89,16 @@ fetch "https://github.com/astral-sh/python-build-standalone/releases/download/20
 tar -xzf "$pycache/$py" -C "$stage"  # unpacks as python/
 site="$stage/$sitedir"
 fetch "https://files.pythonhosted.org/packages/cp313/n/numpy/$wheel" "$wheelsum" "$pycache/$wheel"
-python3 -I -c "import sys, zipfile; zipfile.ZipFile(sys.argv[1]).extractall(sys.argv[2])" "$pycache/$wheel" "$site"
+"$pyhost" -I -c "import sys, zipfile; zipfile.ZipFile(sys.argv[1]).extractall(sys.argv[2])" "$pycache/$wheel" "$site"
 [[ -d "$site/numpy" ]] || { echo "numpy is not in $site" >&2; exit 1; }
 find "$site/numpy" -type d -name tests -prune -exec rm -rf {} +
 rm -rf "$site"/pip "$site"/pip-*.dist-info "$stage"/python/bin/pip* "$stage"/python/bin/idle* "$stage/python/share/man"
-rm -rf "$stage"/python/lib/python3.13/{idlelib,tkinter,turtledemo,ensurepip} "$stage"/python/lib/python3.13/lib-dynload/_tkinter.*
+rm -rf "$stage/$pylib"/{idlelib,tkinter,turtledemo,ensurepip} "$stage/$pylib"/lib-dynload/_tkinter.*
 rm -rf "$stage"/python/lib/{tcl,tk,itcl,thread}[0-9]* "$stage"/python/lib/lib{tcl,tk,tcl9tk}[0-9]*
-"$stage/python/bin/python3" -I -c "import numpy" || { echo "the bundled Python cannot import numpy" >&2; exit 1; }
+rm -rf "$stage"/python/Scripts "$stage"/python/include "$stage"/python/libs "$stage"/python/tcl "$stage"/python/DLLs/_tkinter.pyd "$stage"/python/DLLs/t{cl,k}[0-9]*.dll
+if [[ "$rid" == linux-* || "$(uname -s)" == MINGW* || "$(uname -s)" == MSYS* ]]; then  # a Windows Python runs only on Windows
+    "$stage/$pyexe" -I -c "import numpy" || { echo "the bundled Python cannot import numpy" >&2; exit 1; }
+fi
 find "$stage/python" -name __pycache__ -type d -prune -exec rm -rf {} +  # made by the check above
 
 # Third-party licences of what the package carries: each NuGet package compiled into the app or beside it (Avalonia,
@@ -88,16 +109,23 @@ find "$stage/python" -name __pycache__ -type d -prune -exec rm -rf {} +  # made 
 nuget="${NUGET_PACKAGES:-$HOME/.nuget/packages}"
 netver="$(dotnet msbuild "$root/src/PropGenerator.Desktop/PropGenerator.Desktop.csproj" -getProperty:BundledNETCoreAppPackageVersion)"
 mkdir -p "$stage/licenses"
-python3 -I "$root/scripts/third_party_licenses.py" "$root/src/PropGenerator.Desktop/obj/project.assets.json" "$rid" \
+"$pyhost" -I "$root/scripts/third_party_licenses.py" "$root/src/PropGenerator.Desktop/obj/project.assets.json" "$rid" \
     "$nuget" "$stage/licenses" >/dev/null
 install -m 644 "$nuget/microsoft.netcore.app.runtime.$rid/$netver/THIRD-PARTY-NOTICES.TXT" "$stage/licenses/dotnet-THIRD-PARTY-NOTICES.txt"
 install -m 644 "$nuget/microsoft.aspnetcore.app.runtime.$rid/$netver/THIRD-PARTY-NOTICES.TXT" "$stage/licenses/aspnetcore-THIRD-PARTY-NOTICES.txt"
-install -m 644 "$nuget/skiasharp.nativeassets.linux/3.119.4/THIRD-PARTY-NOTICES.txt" "$stage/licenses/SkiaSharp-THIRD-PARTY-NOTICES.txt"
-install -m 644 "$nuget/harfbuzzsharp.nativeassets.linux/8.3.1.3/THIRD-PARTY-NOTICES.txt" "$stage/licenses/HarfBuzzSharp-THIRD-PARTY-NOTICES.txt"
-install -m 644 "$stage/python/lib/python3.13/LICENSE.txt" "$stage/licenses/CPython.txt"
+install -m 644 "$nuget/skiasharp.nativeassets.$native/3.119.4/THIRD-PARTY-NOTICES.txt" "$stage/licenses/SkiaSharp-THIRD-PARTY-NOTICES.txt"
+install -m 644 "$nuget/harfbuzzsharp.nativeassets.$native/8.3.1.3/THIRD-PARTY-NOTICES.txt" "$stage/licenses/HarfBuzzSharp-THIRD-PARTY-NOTICES.txt"
+install -m 644 "$( [[ -f "$stage/$pylib/LICENSE.txt" ]] && echo "$stage/$pylib/LICENSE.txt" || echo "$stage/python/LICENSE.txt")" "$stage/licenses/CPython.txt"
 install -m 644 "$site"/numpy-*.dist-info/licenses/LICENSE.txt "$stage/licenses/numpy.txt"
 
 cd "$out"
+if [[ "$rid" == win-* ]]; then
+    # The Launcher installs the zip. Python's zipfile, so the same zip comes out on Linux and on Windows.
+    rm -f "$name.zip"
+    "$pyhost" -I -c "import shutil, sys; shutil.make_archive(sys.argv[1], 'zip', '.', sys.argv[1])" "$name"
+    echo "$out/$name.zip"
+    exit 0
+fi
 tar --owner=0 --group=0 --numeric-owner -czf "$name.tar.gz" "$name"
 echo "$out/$name.tar.gz"
 

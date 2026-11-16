@@ -6,16 +6,22 @@ written in C# (.NET 10, Avalonia); the floor is painted by a Python worker (nump
 
 ## Install
 
-Download the latest release from the repository's Releases page. Version 0.1.0 is for **Linux x64**; **Windows is
-planned, not in this version.** There are two downloads, the same app in each:
+The easiest way is the Jatify Launcher, which installs and updates it. Or download the latest release from the
+repository's Releases page, for **Linux x64** or **Windows x64**, the same app in each:
 
-- `PropGenerator-v0.1.0-linux-x64.AppImage`: make it executable (`chmod +x PropGenerator-*.AppImage`) and run it. If
+- `PropGenerator-<version>-win-x64.zip`: unpack it anywhere and run `PropGenerator.exe` in its folder.
+
+- `PropGenerator-<version>-linux-x64.AppImage`: make it executable (`chmod +x PropGenerator-*.AppImage`) and run it. If
   your system has no FUSE, run it with `--appimage-extract-and-run`.
-- `PropGenerator-v0.1.0-linux-x64.tar.gz`: unpack it anywhere (`tar -xzf PropGenerator-*.tar.gz`) and run
-  `PropGenerator-v0.1.0-linux-x64/PropGenerator`. `./install-desktop-entry.sh` in that folder adds it to your app menu
+- `PropGenerator-<version>-linux-x64.tar.gz`: unpack it anywhere (`tar -xzf PropGenerator-*.tar.gz`) and run
+  `PropGenerator-<version>-linux-x64/PropGenerator`. `./install-desktop-entry.sh` in that folder adds it to your app menu
   with its icon (`--remove` takes it out again).
 
-**Requirements:** a 64-bit x86 Linux with glibc 2.27 or newer and a graphical session (X11, or Wayland with XWayland)
+**Requirements on Windows:** 64-bit Windows 10 or 11 with OpenGL (any current graphics driver). Nothing else needs
+installing: the .NET runtime and the floor painter's Python with numpy come in the zip. The painter runs as a plain
+process capped at 2 GB of memory and ends with the app.
+
+**Requirements on Linux:** a 64-bit x86 Linux with glibc 2.27 or newer and a graphical session (X11, or Wayland with XWayland)
 with OpenGL (Mesa's drivers are enough). Nothing else needs installing: the app carries its own .NET runtime, and the
 floor painter's Python, with numpy, is bundled in the package's `python/` folder, so the Python on your system (if any)
 is never used. Where a systemd user session exists (most desktop distributions), the painter runs in a systemd scope
