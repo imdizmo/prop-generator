@@ -9,7 +9,7 @@ import pytest
 
 from propgen_painter.floor_atlas import TOP0, TOPN, paint_floor_atlas, paint_floor_atlas_rgb
 from propgen_painter.layers import LAYER_NAMES
-from test_golden import V5, want_v5
+from test_golden import V5, assert_v5, want_v5
 
 _FULL = []
 
@@ -85,7 +85,7 @@ def test_other_sizes_are_refused():
 def test_full_size_still_v5():   # same as Task 2's test, kept here so this task can't break it silently
     got = paint_floor_atlas_rgb(V5, 1024)
     assert got.shape == (1024, 1024, 3)
-    assert np.abs(got.astype(int) - want_v5()).max() == 0
+    assert_v5(np.abs(got.astype(int) - want_v5()))
 
 
 def test_worker_processes_paint_the_same():

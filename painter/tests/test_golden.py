@@ -21,10 +21,17 @@ def _report(name, got):
     return d
 
 
+def assert_v5(d):
+    """The v5 atlas, give or take float rounding: numpy builds and CPUs differ in the last bit, which moves a few
+    pixels by one level (2 of a million on GitHub's runners). Anything more is a real change to the recipe."""
+    assert d.max() <= 1
+    assert int((d.max(axis=-1) > 0).sum()) <= 16
+
+
 def test_v5_reproduces_exactly():
     got = paint_floor_atlas_rgb(V5)
     assert got.shape == (1024, 1024, 3)
-    assert _report("paint_floor_atlas_rgb", got).max() == 0
+    assert_v5(_report("paint_floor_atlas_rgb", got))
 
 
 def test_layers_compose_to_v5():

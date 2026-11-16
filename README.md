@@ -299,7 +299,7 @@ holds files it made and the cut-rock summaries they are checked against. The por
 and meshoptimizer's native build are no longer in the tree.
 
 The painting recipe lives in `painter/propgen_painter`. A golden test checks that it still reproduces the v5 floor atlas
-pixel for pixel.
+pixel for pixel, give or take float rounding (a few pixels one level off on another numpy build or CPU).
 
 ## Claude's connection
 
