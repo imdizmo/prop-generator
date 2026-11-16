@@ -378,13 +378,13 @@ public class EnginePartEditsTests
         // Through ApplyAsync they go to the engine's thread as a live job; the UI thread does not wait.
         long live = EngineHost.Default.Builds.JobsQueued(EngineJobKind.Live);
         Task<Scene?> seeded = oak.ApplyAsync(s, new SceneOp.Seed(7), Ct);
-        Assert.Equal(live + 1, EngineHost.Default.Builds.JobsQueued(EngineJobKind.Live));
+        Assert.True(EngineHost.Default.Builds.JobsQueued(EngineJobKind.Live) >= live + 1);  // the queue is shared: other tests' windows queue too
         Scene? after = ClaudeKit.Run(seeded, 60000);
         Assert.NotNull(after);
         Assert.Equal(7.0, after.Seed);
 
         Task<Scene?> taller = oak.ApplyAsync(s, new SceneOp.Tree(new Dictionary<string, object>(StringComparer.Ordinal) { ["height"] = 9.0 }), Ct);
-        Assert.Equal(live + 2, EngineHost.Default.Builds.JobsQueued(EngineJobKind.Live));
+        Assert.True(EngineHost.Default.Builds.JobsQueued(EngineJobKind.Live) >= live + 2);  // the queue is shared: other tests' windows queue too
         Assert.Equal(9.0, Convert.ToDouble(ClaudeKit.Run(taller, 60000)!.Parameters["height"], System.Globalization.CultureInfo.InvariantCulture));
     }
 

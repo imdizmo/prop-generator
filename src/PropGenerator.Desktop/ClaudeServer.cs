@@ -55,7 +55,7 @@ public sealed class ClaudeServer
     /// <exception cref="IOException">The port could not be listened on (taken).</exception>
     internal static async Task<ClaudeServer> Start(int port, Func<string> token, ClaudeTools tools)
     {
-        var builder = WebApplication.CreateSlimBuilder(new WebApplicationOptions { ContentRootPath = AppContext.BaseDirectory });
+        var builder = WebApplication.CreateSlimBuilder(new WebApplicationOptions { ContentRootPath = AppContext.BaseDirectory, Args = ["--hostBuilder:reloadConfigOnChange=false"] });
         builder.Logging.ClearProviders();
 
         // The host's console lifetime would take Ctrl+C from the app and stop only this server.

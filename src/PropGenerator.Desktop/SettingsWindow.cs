@@ -172,16 +172,19 @@ public sealed class SettingsWindow : Window
         return combo;
     }
 
+    // A double as the decimal it reads as (0.3 -> 0.3m): a cast gives the binary value's digits on newer runtimes.
+    private static decimal Dec(double d) => decimal.Parse(d.ToString("R", System.Globalization.CultureInfo.InvariantCulture), System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture);
+
     // easy-props' Wind strength: how hard the wind blows in the view when Wind in the view is on.
     private NumericUpDown WindStrength(Prefs prefs, Commands.ViewState? view)
     {
         var box = new NumericUpDown
         {
-            Minimum = (decimal)Prefs.MinWindStrength,
-            Maximum = (decimal)Prefs.MaxWindStrength,
+            Minimum = Dec(Prefs.MinWindStrength),
+            Maximum = Dec(Prefs.MaxWindStrength),
             Increment = 0.1m,
             FormatString = "0.0",
-            Value = (decimal)prefs.WindStrength,
+            Value = Dec(prefs.WindStrength),
             HorizontalAlignment = HorizontalAlignment.Left,
             MinWidth = 160,
         };
@@ -211,7 +214,7 @@ public sealed class SettingsWindow : Window
             void Follow()
             {
                 syncing = true;
-                box.Value = (decimal)view.WindStrength;
+                box.Value = Dec(view.WindStrength);
                 syncing = false;
             }
 
@@ -231,11 +234,11 @@ public sealed class SettingsWindow : Window
         double Current() => view is null ? (slope ? prefs.GroundSlope : prefs.GroundDownhill) : (slope ? view.GroundSlope : view.GroundDownhill);
         var box = new NumericUpDown
         {
-            Minimum = (decimal)(spec.Min ?? 0),
-            Maximum = (decimal)(spec.Max ?? 0),
-            Increment = (decimal)(spec.Step ?? 1),
+            Minimum = Dec(spec.Min ?? 0),
+            Maximum = Dec(spec.Max ?? 0),
+            Increment = Dec(spec.Step ?? 1),
             FormatString = "0",
-            Value = (decimal)Current(),
+            Value = Dec(Current()),
             HorizontalAlignment = HorizontalAlignment.Left,
             MinWidth = 160,
         };
@@ -279,7 +282,7 @@ public sealed class SettingsWindow : Window
             void Follow()
             {
                 syncing = true;
-                box.Value = (decimal)Current();
+                box.Value = Dec(Current());
                 syncing = false;
             }
 

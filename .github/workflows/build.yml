@@ -34,4 +34,5 @@ jobs:
       - name: Engine tests
         run: dotnet test --project tests/Engine.Tests/Engine.Tests.csproj -c Release --no-build
       - name: Desktop tests
-        run: xvfb-run -a dotnet test --project tests/Desktop.Tests/Desktop.Tests.csproj -c Release --no-build
+        # each test window watches the Blender inbox; the runner allows 128 watchers per user, the suite holds ~150
+        run: sudo sysctl -q -w fs.inotify.max_user_instances=1024 && xvfb-run -a dotnet test --project tests/Desktop.Tests/Desktop.Tests.csproj -c Release --no-build
