@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## v0.2.0
 
 - **Windows x64:** a .zip with everything inside (the .NET runtime, and Python with numpy for the floor painter), as
   the Jatify Launcher installs it.

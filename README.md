@@ -276,7 +276,8 @@ PATH, a release package its own).
     dotnet build PropGenerator.slnx -c Release
 
 The app is built to `src/PropGenerator.Desktop/bin/Release/net10.0/`, with the painter copied beside it.
-`scripts/package.sh linux-x64 v0.1.0 dist` makes the release packages (the .tar.gz and the AppImage) in `dist/`.
+`scripts/package.sh linux-x64 v0.2.0 dist` makes the Linux packages (the .tar.gz and the AppImage) in `dist/`, and
+`scripts/package.sh win-x64 v0.2.0 dist` the Windows .zip.
 
 ## Run from source
 
