@@ -56,7 +56,7 @@ public class SystemdWorkerLauncherTests
                 // systemd-run --scope runs the command in its own process: the PID .NET got is python's.
                 string cmdline = File.ReadAllText($"/proc/{pid}/cmdline").Replace('\0', ' ');
                 Assert.DoesNotContain("systemd-run", cmdline, StringComparison.Ordinal);
-                Assert.Matches(@"^(/usr/bin/)?python3 -I ", cmdline);
+                Assert.Matches(@"^(\S*/)?python3(\.\d+)? -I ", cmdline);  // PATH's python3: /usr/bin here, a venv on CI
                 Assert.Contains("worker.py", cmdline, StringComparison.Ordinal);
 
                 // The scope's cgroup holds the cap.
