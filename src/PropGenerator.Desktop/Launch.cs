@@ -20,6 +20,6 @@ internal static class Launch
 
         var ready = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
         window.FirstPictureReady += () => ready.TrySetResult();
-        return Task.WhenAny(ready.Task, Task.Delay(patience));
+        return ready.Task.WaitAsync(patience).ContinueWith(static _ => { }, CancellationToken.None, TaskContinuationOptions.ExecuteSynchronously, TaskScheduler.Default);
     }
 }

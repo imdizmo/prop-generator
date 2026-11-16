@@ -481,7 +481,7 @@ public sealed class WorkerClient : IPainter, IAsyncDisposable
         /// <summary>The last of what the worker wrote to stderr, once stderr has closed (or after the wait).</summary>
         public async Task<string> ErrorTailAsync(TimeSpan wait)
         {
-            await Task.WhenAny(_drain, Task.Delay(wait)).ConfigureAwait(false);
+            await _drain.WaitAsync(wait).ConfigureAwait(ConfigureAwaitOptions.SuppressThrowing);
             lock (_tailGate)
             {
                 return Encoding.UTF8.GetString(_tail, 0, _tailLength).Trim();

@@ -1241,14 +1241,15 @@ public sealed class TileView : OpenGlControlBase
         }
 
         RequestNextFrameRendering();
-        Task finished = await Task.WhenAny(wanted.Task, Task.Delay(TimeSpan.FromSeconds(5)));
-        if (finished != wanted.Task)
+        try
+        {
+            return await wanted.Task.WaitAsync(TimeSpan.FromSeconds(5));
+        }
+        catch (TimeoutException)
         {
             Interlocked.CompareExchange(ref _shot, null, wanted);
             throw new InvalidOperationException("The 3D view drew no frame in 5 seconds (is the window hidden or minimised?).");
         }
-
-        return await wanted.Task;
     }
 
     // Reads the framebuffer just drawn, if a picture was asked for.
