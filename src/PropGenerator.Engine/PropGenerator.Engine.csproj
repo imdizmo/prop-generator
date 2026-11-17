@@ -13,8 +13,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- The bundle and its pin (tools/engine writes them; they may be missing until it has run). Named by their path
-         under Resources/, e.g. PropGenerator.Engine.Resources/engine.js. -->
-    <EmbeddedResource Include="Resources/**/*" LogicalName="PropGenerator.Engine.Resources/%(RecursiveDir)%(Filename)%(Extension)" />
+         under Resources/ with forward slashes on every platform, e.g. PropGenerator.Engine.Resources/thumbs/oak.png
+         (RecursiveDir has backslashes on Windows, so the name is set in a second step). -->
+    <EmbeddedResource Include="Resources/**/*" />
+    <EmbeddedResource Update="Resources/**/*" LogicalName="PropGenerator.Engine.Resources/$([System.String]::Copy('%(RecursiveDir)').Replace('\', '/'))%(Filename)%(Extension)" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.ClearScript.V8" Version="7.5.1.1" />
