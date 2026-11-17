@@ -188,6 +188,28 @@ public class CrashReportTests
         w.Close();
     }
 
+    // Against a real library service: PROPGEN_TEAM_LIVE=<host[:port]>. Sends one report marked as a test.
+    [Fact]
+    public async Task LiveSendATestReport()
+    {
+        string? live = Environment.GetEnvironmentVariable("PROPGEN_TEAM_LIVE");
+        Assert.SkipWhen(string.IsNullOrEmpty(live), "PROPGEN_TEAM_LIVE is not set.");
+        using var s = new Scratch();
+        string log;
+        using (var run = new RunLog(s.P("logs")))
+        {
+            log = run.Path;
+            run.Write("TEST REPORT from Prop Generator's tests: not a real crash, delete it.");
+            run.Memory();
+        }
+
+        var team = new TeamActions(new Prefs(s.P("prefs.json")) { TeamServer = live }, new Library(s.P("library.json")), new ThumbCache(s.P("thumbs")), new FakeDialogs(), s.Dir, (_, _) => { });
+        (bool sent, string said) = await team.SendCrashAsync(CrashReport.Of(log).Zip);
+        Assert.True(sent, said);
+        TestContext.Current.SendDiagnosticMessage(said);
+        File.WriteAllText(Environment.GetEnvironmentVariable("PROPGEN_TEAM_LIVE_OUT") ?? s.P("said.txt"), said);
+    }
+
     private static TeamActions Team(Scratch s, HttpMessageHandler handler) =>
         new(new Prefs(s.P("prefs.json")), new Library(s.P("library.json")), new ThumbCache(s.P("thumbs")), new FakeDialogs(), s.Dir, (_, _) => { })
         {
