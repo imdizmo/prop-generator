@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+New:
+- **Crash reports.** If Prop Generator closes unexpectedly (any error or crash, or a kill by the memory cap), the next
+  start asks whether to send a report to the team: the version, the system, the memory used and that run's log. You
+  can read exactly what is sent first, and nothing is sent unless you press Send. Asked only when a team server is set.
+
 ## v0.2.0
 
 New:

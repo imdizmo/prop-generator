@@ -207,6 +207,26 @@ internal sealed partial class TeamClient : IDisposable
         return zip;
     }
 
+    /// <summary>Sends a crash report (POST /team/crashes).</summary>
+    /// <param name="zip">The report.</param>
+    /// <param name="tool">The tool's id.</param>
+    /// <param name="version">The tool's version.</param>
+    /// <param name="os">windows or linux.</param>
+    /// <param name="stop">Stops the call.</param>
+    /// <returns>The id the server gave the report.</returns>
+    internal async Task<string> SendCrashAsync(byte[] zip, string tool, string version, string os, CancellationToken stop = default)
+    {
+        using var req = new HttpRequestMessage(HttpMethod.Post, $"team/crashes?tool={Uri.EscapeDataString(tool)}&version={Uri.EscapeDataString(version)}&os={Uri.EscapeDataString(os)}")
+        {
+            Content = new ByteArrayContent(zip),
+        };
+        req.Content.Headers.ContentType = new MediaTypeHeaderValue("application/zip");
+        using HttpResponseMessage r = await SendAsync(req, stop);
+        await Check(r, stop);
+        using var d = JsonDocument.Parse(await ReadAsync(r, MaxReply, stop));
+        return Text(d.RootElement, "id") ?? "sent";
+    }
+
     /// <inheritdoc/>
     public void Dispose() => _http.Dispose();
 

@@ -188,6 +188,28 @@ internal sealed class TeamActions
         }
     }
 
+    /// <summary>Sends a crash report, once: no retry and no queue (the person can send the next one).</summary>
+    /// <param name="zip">The report.</param>
+    /// <returns>What to say: sent with its id, or why not.</returns>
+    internal async Task<(bool Sent, string Said)> SendCrashAsync(byte[] zip)
+    {
+        if (Server is not { } server)
+        {
+            return (false, "The report could not be sent: no team server is set.");
+        }
+
+        using var c = new TeamClient(server, Handler);
+        try
+        {
+            string id = await c.SendCrashAsync(zip, "prop-generator", Crash.RunLog.Version, Crash.RunLog.Os);
+            return (true, $"Crash report sent to the team ({id}). Thank you.");
+        }
+        catch (TeamException e)
+        {
+            return (false, $"The report could not be sent: {e.Message}");
+        }
+    }
+
     // One call to the server: offline says so; unreachable asks Retry or Carry on offline; any other failure is said.
     private async Task<T?> RunAsync<T>(Func<TeamClient, Task<T?>> call)
         where T : class

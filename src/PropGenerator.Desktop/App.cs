@@ -150,6 +150,49 @@ public sealed class App : Application
         desktop.MainWindow = window;
         window.Show();
         splash.Close();
+        OfferCrashReport(window, Program.Log);
+    }
+
+    /// <summary>
+    /// After a run that ended badly, asks whether to send its report to the team; nothing is offered without a team
+    /// server, and the question is asked once.
+    /// </summary>
+    /// <param name="window">The window.</param>
+    /// <param name="log">This run's log, or null.</param>
+    internal static void OfferCrashReport(MainWindow window, Crash.RunLog? log)
+    {
+        if (log?.Crashed is not { } crashed || window.Team.Server is null)
+        {
+            return;
+        }
+
+        log.CrashDealtWith();
+        Crash.CrashReport report;
+        try
+        {
+            report = Crash.CrashReport.Of(crashed);
+        }
+        catch (Exception e) when (e is IOException or UnauthorizedAccessException)
+        {
+            return;
+        }
+
+        if (report.Zip.Length > Crash.CrashReport.MaxZip)
+        {
+            return;  // ponytail: a 2 MB log zips far below 20 MB; this never happens, so nothing is offered.
+        }
+
+        Crash.CrashCard? card = null;
+        card = new Crash.CrashCard(report, window.Team.SendCrashAsync, (said, error) =>
+        {
+            if (ReferenceEquals(window.Cards.Shown, card))
+            {
+                window.Cards.Close();
+            }
+
+            window.Say(said, error);
+        });
+        window.Cards.Show(card);
     }
 
     /// <summary>What the launch read before the main window is built.</summary>

@@ -188,6 +188,12 @@ props, beside your saved work. The server is the one typed in Settings > Team, e
 before. When the server cannot be reached you are asked to retry or carry on offline. There are no passwords: the
 server knows you by your Tailscale account.
 
+**Crash reports.** Each run writes a log in `~/.config/prop-generator/logs/` (at most 2 MB; the last 5 runs are
+kept): what the status line said, any error with its stack, and the memory in use each minute. When a run ends
+without closing cleanly (an error, a crash, a kill by the memory cap), the next start asks "Prop Generator closed
+unexpectedly. Send the report to the team?": Send, Don't send, or Show what is sent (the report's whole text). Nothing
+is sent unless you press Send, and nothing is asked without a team server.
+
 ## Backups
 
 - **Back up to a file** writes every prop into one zip (`prop-generator-backup-YYYY-MM-DD.zip` is offered): a
