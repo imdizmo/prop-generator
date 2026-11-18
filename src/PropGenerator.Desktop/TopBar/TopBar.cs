@@ -105,6 +105,10 @@ internal sealed class TopBar : Border
         Chrome.Tip(Palette, "Search for any command, setting or starting point by typing part of its name, and run it (Ctrl+K).");
         Palette.Click += (_, _) => RunCommand(commands, "palette");
 
+        Suggest = Chrome.IconTextButton("send", "Suggestion", "Tell the team what you would change in Prop Generator, with pictures if you like.");
+        Suggest.IsVisible = false;  // only for people on a team (MainWindow.CheckTeamAsync)
+        AutomationProperties.SetName(Suggest, "Suggestion");
+
         Save = Chrome.IconTextButton("save", "Save", "Save (Ctrl+S)");
         Save.Margin = new Thickness(0, 0, 2, 0);
         AutomationProperties.SetName(Save, "Save");
@@ -120,6 +124,7 @@ internal sealed class TopBar : Border
         left.Children.Add(new Border { Width = 1, Height = Look.Theme.Space4, Background = Look.Theme.BorderSubtle, VerticalAlignment = VerticalAlignment.Center });
         left.Children.Add(Prop);
         var right = new StackPanel { Orientation = Orientation.Horizontal, Spacing = Look.Theme.Space2, VerticalAlignment = VerticalAlignment.Center };
+        right.Children.Add(Suggest);
         right.Children.Add(Save);
         right.Children.Add(Export);
         var row = new DockPanel { LastChildFill = true };
@@ -167,6 +172,9 @@ internal sealed class TopBar : Border
 
     /// <summary>Gets the Save button.</summary>
     internal Button Save { get; }
+
+    /// <summary>Gets Suggestion, shown only to people on a team.</summary>
+    internal Button Suggest { get; }
 
     /// <summary>Gets the Export button.</summary>
     internal Button Export { get; }

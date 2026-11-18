@@ -116,6 +116,12 @@ internal sealed class FakeDialogs : IDialogs
         return Task.FromResult(SaveFilePath);
     }
 
+    /// <summary>Gets the paths Add pictures… is given.</summary>
+    public List<string> PicturePaths { get; } = [];
+
+    /// <inheritdoc/>
+    public Task<IReadOnlyList<string>> AskOpenPicturesAsync(string title) => Task.FromResult<IReadOnlyList<string>>([.. PicturePaths]);
+
     /// <inheritdoc/>
     public Task<string?> AskOpenFileAsync(string title, string extension, string? startFolder) => Task.FromResult(OpenFilePath);
 }

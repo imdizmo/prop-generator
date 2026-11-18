@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+New:
+- **Suggestion** (for people on a team): a button at the top right to tell the team what you would change, with a
+  picture of the window or your own screenshots attached. It is shown only when Prop Generator is connected to your
+  team's server and the team knows you. Nothing is sent until you press Send, and what you wrote is kept if you close
+  the box. Needs the team server 0.7.0 or newer.
+
 ## v0.3.0
 
 New:

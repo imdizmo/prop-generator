@@ -45,6 +45,9 @@ public sealed class MainWindow : Window
     private readonly Grid _stage = new();
     private readonly Grid _centre;
     private DockPanel _shell = null!;
+
+    // What Suggestion holds until it is sent (closing the card keeps it).
+    private PropGenerator.Desktop.Team.SuggestionCard? _suggestion;
     private SettingsWindow? _settingsWindow;
     private bool _closeApproved;
 
@@ -168,6 +171,7 @@ public sealed class MainWindow : Window
         Shortcuts = new Shortcuts(Commands);
         var menus = new MenuLayer(Look.Theme.MenuBarHeight);
         TopBar = new TopBar(Commands, Files, menus, () => ShowDrawer("All"));
+        TopBar.Suggest.Click += async (_, _) => await ShowSuggestionAsync();
         Panel.UseMemory(_prefs, () => Files.Recipe);
         Panel.UseColours(Colours);
         Panel.SetStartingPoint(StartingSettings());
@@ -598,12 +602,62 @@ public sealed class MainWindow : Window
         }
 
         _settingsWindow = new SettingsWindow(Claude, _prefs, ViewState, Team);
-        _settingsWindow.Closed += (_, _) => _settingsWindow = null;
+        _settingsWindow.Closed += (_, _) =>
+        {
+            _settingsWindow = null;
+            _ = CheckTeamAsync();  // the team server may have changed
+        };
         _settingsWindow.Show(this);
     }
 
     /// <summary>Shows the list of keyboard shortcuts (Help, Keyboard shortcuts).</summary>
     internal void ShowShortcuts() => Cards.Show(new ShortcutsCard(Commands, Cards.Close));
+
+    /// <summary>Gets a value indicating whether the person is on a team, so Suggestion is shown (see <see cref="CheckTeamAsync"/>).</summary>
+    internal bool OnTeam { get; private set; }
+
+    /// <summary>
+    /// Asks the team server who this is, quietly, and shows Suggestion only to someone on the team: with no team
+    /// server, an unreachable one, or a person the team has not added, there is no Suggestion button.
+    /// </summary>
+    /// <returns>Done when it is known.</returns>
+    internal async Task CheckTeamAsync()
+    {
+        (Team.TeamMe? me, _) = Team.Server is null ? (null, null) : await Team.CheckAsync();
+        OnTeam = me?.Role is not null;
+        TopBar.Suggest.IsVisible = OnTeam;
+    }
+
+    /// <summary>
+    /// Opens Suggestion, first taking a picture of the window as it is now (offered as Picture of the window).
+    /// What was written before and not sent comes back.
+    /// </summary>
+    /// <returns>Done when the card is shown.</returns>
+    internal async Task ShowSuggestionAsync()
+    {
+        byte[]? shot = null;
+        try
+        {
+            shot = await PropGenerator.Desktop.Team.WindowShot.TakeAsync(this, View, View.CaptureAsync);
+        }
+        catch (Exception e) when (e is InvalidOperationException or ArgumentException or NotSupportedException)
+        {
+            // No picture of the window: the card is shown without it.
+        }
+
+        _suggestion ??= new PropGenerator.Desktop.Team.SuggestionCard(
+            Team.Server is null ? null : Team.SendSuggestionAsync,
+            () => Files.Dialogs.AskOpenPicturesAsync("Add screenshots to the suggestion"),
+            Cards.Close,
+            (said, error) =>
+            {
+                _suggestion = null;
+                Cards.Close();
+                Say(said, error);
+            });
+        _suggestion.UseWindow(shot);
+        Cards.Show(_suggestion);
+    }
 
     /// <summary>Shows the version and the credits (Help, About Prop Generator).</summary>
     internal void ShowAbout() => Cards.Show(new AboutCard(Cards.Close));

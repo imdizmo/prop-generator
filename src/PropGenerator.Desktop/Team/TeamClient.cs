@@ -227,6 +227,49 @@ internal sealed partial class TeamClient : IDisposable
         return Text(d.RootElement, "id") ?? "sent";
     }
 
+    /// <summary>
+    /// Sends a suggestion (POST /team/suggestions, ShelfServer 0.7.0): a zip of suggestion.txt and the pictures, named
+    /// screenshot-1.png, screenshot-2.jpg… (the server takes only plain names, and checks a name's type against its bytes).
+    /// </summary>
+    /// <param name="suggestion">The suggestion.</param>
+    /// <param name="tool">The tool's id.</param>
+    /// <param name="version">The tool's version.</param>
+    /// <param name="os">windows or linux.</param>
+    /// <param name="stop">Stops the call.</param>
+    /// <returns>Done when the server took it.</returns>
+    internal async Task SendSuggestionAsync(Suggestion suggestion, string tool, string version, string os, CancellationToken stop = default)
+    {
+        using var zip = new MemoryStream();
+        using (var a = new System.IO.Compression.ZipArchive(zip, System.IO.Compression.ZipArchiveMode.Create, leaveOpen: true))
+        {
+            using (var w = new StreamWriter(a.CreateEntry("suggestion.txt").Open()))
+            {
+                await w.WriteAsync(suggestion.Text);
+            }
+
+            for (int i = 0; i < suggestion.Pictures.Count; i++)
+            {
+                byte[] bytes = suggestion.Pictures[i].Bytes;
+                string ext = bytes.Length > 0 && bytes[0] == 0xFF ? "jpg" : "png";
+                using Stream e = a.CreateEntry($"screenshot-{i + 1}.{ext}", System.IO.Compression.CompressionLevel.NoCompression).Open();
+                await e.WriteAsync(bytes, stop);
+            }
+        }
+
+        using var req = new HttpRequestMessage(HttpMethod.Post, $"team/suggestions?tool={Uri.EscapeDataString(tool)}&version={Uri.EscapeDataString(version)}&os={Uri.EscapeDataString(os)}")
+        {
+            Content = new ByteArrayContent(zip.ToArray()),
+        };
+        req.Content.Headers.ContentType = new MediaTypeHeaderValue("application/zip");
+        using HttpResponseMessage r = await SendAsync(req, stop);
+        if (r.StatusCode == HttpStatusCode.NotFound)
+        {
+            throw new TeamException("Your team's server is too old for suggestions: ask its owner to update it.");
+        }
+
+        await Check(r, stop);
+    }
+
     /// <inheritdoc/>
     public void Dispose() => _http.Dispose();
 

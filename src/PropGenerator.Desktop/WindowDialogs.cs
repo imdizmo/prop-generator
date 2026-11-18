@@ -195,6 +195,18 @@ public sealed class WindowDialogs : IDialogs
         return files.Count == 0 ? null : files[0].TryGetLocalPath();
     }
 
+    /// <inheritdoc/>
+    public async Task<IReadOnlyList<string>> AskOpenPicturesAsync(string title)
+    {
+        IReadOnlyList<IStorageFile> files = await _window.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+        {
+            Title = title,
+            AllowMultiple = true,
+            FileTypeFilter = [new FilePickerFileType("Pictures") { Patterns = ["*.png", "*.jpg", "*.jpeg"] }],
+        });
+        return [.. files.Select(f => f.TryGetLocalPath()).OfType<string>()];
+    }
+
     private async Task<IStorageFolder?> Folder(string? path) =>
         path is not null && Directory.Exists(path) ? await _window.StorageProvider.TryGetFolderFromPathAsync(path) : null;
 

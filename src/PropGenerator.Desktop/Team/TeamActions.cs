@@ -210,6 +210,28 @@ internal sealed class TeamActions
         }
     }
 
+    /// <summary>Sends a suggestion, once: no retry and no queue (what was written stays in the card to send again).</summary>
+    /// <param name="suggestion">The suggestion.</param>
+    /// <returns>What to say: sent, or why not.</returns>
+    internal async Task<(bool Sent, string Said)> SendSuggestionAsync(Suggestion suggestion)
+    {
+        if (Server is not { } server)
+        {
+            return (false, "The suggestion could not be sent: no team server is set.");
+        }
+
+        using var c = new TeamClient(server, Handler);
+        try
+        {
+            await c.SendSuggestionAsync(suggestion, "prop-generator", Crash.RunLog.Version, Crash.RunLog.Os);
+            return (true, "Suggestion sent to the team. Thank you.");
+        }
+        catch (TeamException e)
+        {
+            return (false, $"The suggestion could not be sent: {e.Message}");
+        }
+    }
+
     // One call to the server: offline says so; unreachable asks Retry or Carry on offline; any other failure is said.
     private async Task<T?> RunAsync<T>(Func<TeamClient, Task<T?>> call)
         where T : class

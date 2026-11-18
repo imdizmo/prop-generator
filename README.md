@@ -194,6 +194,12 @@ without closing cleanly (an error, a crash, a kill by the memory cap), the next 
 unexpectedly. Send the report to the team?": Send, Don't send, or Show what is sent (the report's whole text). Nothing
 is sent unless you press Send, and nothing is asked without a team server.
 
+**Suggestion.** For people on a team only: the button shows at the top right when a team server is set and it knows
+you as a member of the team (any role). It opens a box to write what you would change, with pictures: one of the
+window as it was when you pressed Suggestion, or screenshot files (PNG or JPEG, up to 10, 10 MB each, 19 MB together).
+Send posts it to the team server (`POST /team/suggestions`, ShelfServer 0.7.0 or newer). What you wrote is kept if you
+close the box, until it is sent.
+
 ## Backups
 
 - **Back up to a file** writes every prop into one zip (`prop-generator-backup-YYYY-MM-DD.zip` is offered): a

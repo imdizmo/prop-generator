@@ -62,4 +62,9 @@ public interface IDialogs
     /// <param name="startFolder">Where the dialog opens, or null.</param>
     /// <returns>The chosen path, or null when cancelled.</returns>
     Task<string?> AskOpenFileAsync(string title, string extension, string? startFolder);
+
+    /// <summary>Asks for one or more pictures (PNG or JPEG) to attach to a suggestion.</summary>
+    /// <param name="title">The dialog's title.</param>
+    /// <returns>The chosen paths, none when cancelled.</returns>
+    Task<IReadOnlyList<string>> AskOpenPicturesAsync(string title);
 }

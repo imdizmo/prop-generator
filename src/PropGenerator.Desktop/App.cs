@@ -151,6 +151,7 @@ public sealed class App : Application
         window.Show();
         splash.Close();
         OfferCrashReport(window, Program.Log);
+        _ = window.CheckTeamAsync();
     }
 
     /// <summary>
