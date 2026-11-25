@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## v0.4.0
 
 New:
 - **Suggestion** (for people on a team): a button at the top right to tell the team what you would change, with a
